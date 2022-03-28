@@ -1,17 +1,40 @@
+jest.mock('../ffc-pay-alert/validate-message')
+const validateMessage = require('../ffc-pay-alert/validate-message')
+
 const sender = require('../ffc-pay-alert')
 const mockContext = require('./mock-context')
 
-const mockMessage = {
-  Test: 123
-}
+let mockMessage
 
 describe('alert', () => {
+  beforeEach(() => {
+    validateMessage.mockReturnValue = undefined
+
+    mockMessage = {
+      test: 'valid message'
+    }
+  })
+
   afterEach(() => {
     jest.clearAllMocks()
   })
 
-  test('should log out message', async () => {
+  test('should call validateMessage when a valid message is received', async () => {
+    await sender(mockContext, mockMessage)
+    expect(validateMessage).toHaveBeenCalled()
+  })
+
+  test('should log out message when a valid message is received', async () => {
     await sender(mockContext, mockMessage)
     expect(mockContext.log).toHaveBeenCalled()
+  })
+
+  test('should call validateMessage when an invalid message is received', async () => {
+    mockMessage = {
+      invalidProperty: 'invalid property name'
+    }
+
+    await sender(mockContext, mockMessage)
+    expect(validateMessage).toHaveBeenCalled()
   })
 })

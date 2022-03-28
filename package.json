@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "lint": "standard",
-    "start": "func start -p 7070",
+    "start": "func start -p 7070 --verbose",
     "test": "jest",
     "test:watch": "jest --coverage=false --onlyChanged --watch"
   },
@@ -30,5 +30,6 @@
     "standard": "^16.0.4"
   },
   "dependencies": {
+    "joi": "^17.6.0"
   }
 }
