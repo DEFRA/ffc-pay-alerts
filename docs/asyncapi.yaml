@@ -1,0 +1,19 @@
+asyncapi: 2.2.0
+info:
+  title: FFC Pay Alert
+  version: '1.0.0'
+channels:
+  payment/debt:
+    subscribe:
+      message:
+        $ref: '#/components/messages/SendRequest'
+components:
+  messages:
+    SendRequest:
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          Test:
+            type: string
+            description: Placeholder property
