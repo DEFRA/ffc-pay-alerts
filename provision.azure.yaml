@@ -1,5 +1,5 @@
 resources:
   topics:
-    - name: send
+    - name: alert
   storage:
-    - name: ffcpayfilesend
+    - name: ffcpayalert
