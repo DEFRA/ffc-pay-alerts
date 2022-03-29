@@ -24,11 +24,6 @@ describe('alert', () => {
     expect(validateMessage).toHaveBeenCalled()
   })
 
-  test('should log out message when a valid message is received', async () => {
-    await sender(mockContext, mockMessage)
-    expect(mockContext.log).toHaveBeenCalled()
-  })
-
   test('should call validateMessage when an invalid message is received', async () => {
     mockMessage = {
       invalidProperty: 'invalid property name'
