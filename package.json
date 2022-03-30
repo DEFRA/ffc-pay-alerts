@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "lint": "standard",
-    "start": "func start -p 7070 --verbose",
+    "start": "func start -p 7070",
     "test": "jest",
     "test:watch": "jest --coverage=false --onlyChanged --watch"
   },
