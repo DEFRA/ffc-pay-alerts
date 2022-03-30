@@ -1,4 +1,4 @@
-const validateMessage = require('../ffc-pay-alert/validate-message')
+const validateMessage = require('../ffc-pay-alerts/validate-message')
 const mockContext = require('./mock-context')
 
 let mockMessage
