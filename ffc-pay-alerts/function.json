@@ -4,8 +4,8 @@
       "name": "mySbMsg",
       "type": "serviceBusTrigger",
       "direction": "in",
-      "topicName": "%EVENTALERT_TOPIC_ADDRESS%",
-      "subscriptionName": "%EVENTALERTRESPONSE_SUBSCRIPTION_ADDRESS%",
+      "topicName": "%ALERT_TOPIC_ADDRESS%",
+      "subscriptionName": "%ALERT_SUBSCRIPTION_ADDRESS%",
       "connection": "MESSAGE_CONNECTION"
     }
   ]

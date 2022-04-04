@@ -1,6 +1,6 @@
 const mockContext = require('./mock-context')
 
-let sender
+let alert
 let validateMessage
 let sendEmail
 let mockMessage
@@ -16,7 +16,7 @@ describe('alert', () => {
     jest.mock('../ffc-pay-alerts/notify')
     sendEmail = require('../ffc-pay-alerts/notify')
 
-    sender = require('../ffc-pay-alerts')
+    alert = require('../ffc-pay-alerts')
 
     mockMessage = {
       test: 'valid message'
@@ -28,25 +28,25 @@ describe('alert', () => {
   })
 
   test('should call validateMessage when a valid message is received', async () => {
-    await sender(mockContext, mockMessage)
+    await alert(mockContext, mockMessage)
 
     expect(validateMessage).toHaveBeenCalled()
   })
 
   test('should call validateMessage with correct parameters when a valid message is received', async () => {
-    await sender(mockContext, mockMessage)
+    await alert(mockContext, mockMessage)
 
     expect(validateMessage).toHaveBeenCalledWith(mockContext, mockMessage)
   })
 
   test('should call sendEmail when a valid message is received', async () => {
-    await sender(mockContext, mockMessage)
+    await alert(mockContext, mockMessage)
 
     expect(sendEmail).toHaveBeenCalled()
   })
 
   test('should call sendEmail with correct parameters when a valid message is received', async () => {
-    await sender(mockContext, mockMessage)
+    await alert(mockContext, mockMessage)
 
     expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage)
   })
@@ -55,7 +55,7 @@ describe('alert', () => {
     validateMessage.mockImplementation(() => { throw new Error() })
 
     try {
-      await sender(mockContext, mockMessage)
+      await alert(mockContext, mockMessage)
     } catch (err) {
       expect(validateMessage).toHaveBeenCalled()
       expect(validateMessage).toThrowError(Error)

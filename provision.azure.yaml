@@ -1,5 +1,3 @@
 resources:
   topics:
     - name: alert
-  storage:
-    - name: ffcpayalert

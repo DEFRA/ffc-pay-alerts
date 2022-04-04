@@ -3,7 +3,7 @@ info:
   title: FFC Pay Alert
   version: '1.0.0'
 channels:
-  payment/debt:
+  alert:
     subscribe:
       message:
         $ref: '#/components/messages/SendRequest'
