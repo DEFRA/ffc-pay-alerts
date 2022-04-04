@@ -59,11 +59,12 @@ It's likely that the Service Bus topic and subscription names will need to be am
     "BATCH_STORAGE": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10001/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10008/devstoreaccount1;",
     "MESSAGE_CONNECTION": "SERVICE BUS CONNECTION STRING",
     "ALERT_TOPIC_ADDRESS": "ffc-pay-alerts",
-    "ALERT_SUBSCRIPTION_ADDRESS": "ffc-pay-alert",
+    "ALERT_SUBSCRIPTION_ADDRESS": "ffc-pay-alerts",
     "NOTIFY_API_KEY": "NOTIFY TEST, TEAM OR LIVE API KEY STRING",
     "NOTIFY_EMAIL_TEMPLATE_ID" : "NOTIFY EMAIL TEMPLATE STRING",
     "NOTIFY_EMAIL_ADDRESS" : "RPA OPERATIONS EMAIL ADDRESS STRING",    
   }
+}
 
 ```
 
