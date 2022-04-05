@@ -95,4 +95,66 @@ describe('validate message', () => {
 
     expect(wrapper).rejects.toThrowError(/^The message schema is invalid/)
   })
+
+  test('should throw Error when an empty string message value is received', async () => {
+    mockMessage = {
+      test: ''
+    }
+
+    const wrapper = async () => {
+      try {
+        await validateMessage(mockContext, mockMessage)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+
+    expect(wrapper).rejects.toThrowError(Error)
+  })
+
+  test('should throw an error which starts with "The message schema is invalid" when an empty string message value is received', async () => {
+    mockMessage = {
+      test: ''
+    }
+
+    const wrapper = async () => {
+      try {
+        await validateMessage(mockContext, mockMessage)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+
+    expect(wrapper).rejects.toThrowError(/^The message schema is invalid/)
+  })
+
+  test('should throw Error when an undefined message value is received', async () => {
+    mockMessage = {
+      test: undefined
+    }
+
+    const wrapper = async () => {
+      try {
+        await validateMessage(mockContext, mockMessage)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+
+    expect(wrapper).rejects.toThrowError(Error)
+  })
+
+  test('should throw an error which starts with "The message schema is invalid" when an empty message is received', async () => {
+    mockMessage = {}
+
+    const wrapper = async () => {
+      try {
+        await validateMessage(mockContext, mockMessage)
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+
+    expect(wrapper).rejects.toThrowError(/^The message schema is invalid/)
+  })
 })
