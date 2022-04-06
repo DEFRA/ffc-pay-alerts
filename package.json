@@ -1,7 +1,7 @@
 {
   "name": "ffc-pay-alert",
-  "version": "1.0.0",
-  "description": "Publish payment alerts to email via Notify",
+  "version": "1.1.0",
+  "description": "Azure Function app to send payment alerts to email via GOV.UK Notify",
   "author": "Defra",
   "contributors": [
     "Marc Templeton <m.templeton@kainos.com>"
@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "standard",
     "start": "func start -p 7070",
+    "start:verbose": "func start -p 7070 --verbose",
     "test": "jest",
     "test:watch": "jest --coverage=false --onlyChanged --watch"
   },
@@ -30,5 +31,7 @@
     "standard": "^16.0.4"
   },
   "dependencies": {
+    "joi": "^17.6.0",
+    "notifications-node-client": "^5.1.1"
   }
 }
