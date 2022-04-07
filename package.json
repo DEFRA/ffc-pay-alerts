@@ -1,6 +1,6 @@
 {
   "name": "ffc-pay-alert",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Azure Function app to send payment alerts to email via GOV.UK Notify",
   "author": "Defra",
   "contributors": [
