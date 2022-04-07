@@ -1,3 +1,5 @@
 resources:
   topics:
-    - name: alert
+    - name: ffc-pay-alerts
+  storage:
+    - name: ffcpayalerts
