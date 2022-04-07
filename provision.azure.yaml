@@ -1,3 +1,5 @@
 resources:
   topics:
-    - name: alert
+    - name: alerts
+  storage:
+    - name: ffcpayalerts
