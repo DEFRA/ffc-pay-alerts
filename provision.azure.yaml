@@ -2,4 +2,4 @@ resources:
   topics:
     - name: ffc-pay-alerts
   storage:
-    - name: ffcpayalerts
+    - name: alerts
