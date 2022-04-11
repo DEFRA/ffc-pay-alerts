@@ -8,8 +8,19 @@ The message contains the text to be displayed in the email.
 ## Example message
 
 ```
-{ 
-  "test": "There is a problem within ffc-pay-processing as a ledger assignment has been sitting idle for 1 week."
+{
+	"name": "Enrichment needed for payment request",
+	"properties": {
+		"id": "1234567890",
+		"checkpoint": "acr-test-log-web",
+		"status": "in progress",
+		"action": {
+			"type": "error",
+			"message": "Enrichment needed",
+			"timestamp":  "2022-02-22T15:00:00.000Z",
+      "data": {}
+		}
+	}
 }
 ```
 

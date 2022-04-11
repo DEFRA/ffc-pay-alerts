@@ -17,7 +17,18 @@ describe('send email', () => {
     sendEmail = require('../ffc-pay-alerts/notify')
 
     mockMessage = {
-      test: 'valid message'
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: 'test',
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
     }
     mockReference = ''
   })
