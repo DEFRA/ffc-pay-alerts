@@ -31,6 +31,7 @@
     "standard": "^16.0.4"
   },
   "dependencies": {
+    "flat": "^5.0.2",
     "joi": "^17.6.0",
     "notifications-node-client": "^5.1.1"
   }

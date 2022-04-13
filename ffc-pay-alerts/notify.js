@@ -1,3 +1,4 @@
+const flatten = require('flat')
 const {
   notifyApiKey,
   notifyEmailTemplateId,
@@ -10,7 +11,7 @@ const notifyClient = new NotifyClient(notifyApiKey)
 const sendEmail = async (context, message, emailAddress = notifyEmailAddress, reference = '') => {
   try {
     await notifyClient.sendEmail(notifyEmailTemplateId, emailAddress, {
-      personalisation: message,
+      personalisation: flatten(message),
       reference
     })
     context.log(`Email sent to ${emailAddress} containing `, message)

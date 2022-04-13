@@ -1,3 +1,4 @@
+const flatten = require('flat')
 const env = require('./env')
 const mockContext = require('./mock-context')
 
@@ -54,7 +55,7 @@ describe('send email', () => {
 
     const notifyClientMockInstance = NotifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
-      personalisation: mockMessage,
+      personalisation: flatten(mockMessage),
       reference: mockReference
     })
   })
