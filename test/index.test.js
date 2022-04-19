@@ -19,7 +19,19 @@ describe('alert', () => {
     alert = require('../ffc-pay-alerts')
 
     mockMessage = {
-      test: 'valid message'
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: 'test',
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+
     }
   })
 

@@ -5,20 +5,32 @@ This function is triggered from a service bus message requesting an email messag
 
 The message contains the text to be displayed in the email.
 
-## Example message
-
-```
-{ 
-  "test": "There is a problem within ffc-pay-processing as a ledger assignment has been sitting idle for 1 week."
-}
-```
-
 ## Prerequisites
 
 - Node.js LTS 16
 - access to a GOV.UK Notify account
 - create a [GOV.UK Notify email template](https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages) with the Personalisation of `((test))` included where you'd like the message text to appear
 - [Azure Functions Core Tools V3](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Clinux%2Ccsharp%2Cportal%2Cbash)
+
+## Example message
+
+```
+{
+	"name": "Enrichment needed for payment request",
+	"properties": {
+		"id": "1234567890",
+		"checkpoint": "acr-test-log-web",
+		"status": "in progress",
+		"action": {
+			"type": "error",
+			"message": "Enrichment needed",
+			"timestamp":  "2022-02-22T15:00:00.000Z",
+      "data": {}
+		}
+	}
+}
+```
+
 
 ## Azure Storage
 
