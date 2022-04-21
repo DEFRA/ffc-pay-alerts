@@ -7,6 +7,9 @@ cd "${projectRoot}"
 
 while :; do
   case $1 in
+    -d|--detached)
+      detached="true"
+      ;;
     -v|--verbose)
       verbose="true"
       ;;
@@ -17,7 +20,11 @@ while :; do
   shift
 done
 
-if [ "${verbose}" = "true" ]; then
+
+if [ "${detached}" = "true" ]; then
+  docker-compose up -d &&
+    npm run start:detached
+elif [ "${verbose}" = "true" ]; then
   docker-compose up -d &&
     npm run start:verbose
 else
