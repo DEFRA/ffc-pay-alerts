@@ -60,7 +60,27 @@ describe('send email', () => {
     })
   })
 
-  test('should throw Error when the notifyClient.sendEmail promise rejects', async () => {
+  test('should throw error when sendEmail rejects', async () => {
+    NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow()
+  })
+
+  test('should throw Error when sendEmail rejects', async () => {
+    NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow(Error)
+  })
+
+  test('should throw "Oh dear" Error when sendEmail rejects', async () => {
     NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
 
     const wrapper = async () => {

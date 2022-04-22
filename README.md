@@ -24,7 +24,7 @@ The message contains the text to be displayed in the email.
 		"action": {
 			"type": "error",
 			"message": "Enrichment needed",
-			"timestamp":  "2022-02-22T15:00:00.000Z",
+			"timestamp": "2022-02-22T15:00:00.000Z",
       "data": {}
 		}
 	}

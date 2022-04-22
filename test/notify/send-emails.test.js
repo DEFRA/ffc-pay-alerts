@@ -92,4 +92,34 @@ describe('send emails', () => {
     expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[0], mockDefaultReference])
     expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[1], mockDefaultReference])
   })
+
+  test('should throw error when sendEmail rejects', async () => {
+    sendEmail.mockRejectedValue(new Error('Oh dear'))
+
+    const wrapper = async () => {
+      await sendEmails(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow()
+  })
+
+  test('should throw Error when sendEmail rejects', async () => {
+    sendEmail.mockRejectedValue(new Error('Oh dear'))
+
+    const wrapper = async () => {
+      await sendEmails(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow(Error)
+  })
+
+  test('should throw "Oh dear" Error when sendEmail rejects', async () => {
+    sendEmail.mockRejectedValue(new Error('Oh dear'))
+
+    const wrapper = async () => {
+      await sendEmails(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrowError(/^Oh dear/)
+  })
 })
