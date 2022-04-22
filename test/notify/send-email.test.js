@@ -5,6 +5,7 @@ const mockMessage = require('../mock-context')
 const mockReference = require('../mock-reference')
 
 let NotifyClient
+let validateEmail
 let sendEmail
 let emailAddress
 let defaultReference
@@ -13,6 +14,9 @@ describe('send email', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.resetModules()
+
+    jest.mock('../ffc-pay-alerts/notify/validate-message')
+    validateEmail = require('../ffc-pay-alerts/notify/validate-email')
 
     NotifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
@@ -31,6 +35,24 @@ describe('send email', () => {
   test('should correctly configure Notify client on module import', async () => {
     expect(NotifyClient).toHaveBeenCalledTimes(1)
     expect(NotifyClient).toHaveBeenCalledWith(env.notifyApiKey)
+  })
+
+  test('should call validateEmail when a valid message is received', async () => {
+    await sendEmail(mockContext, mockMessage)
+
+    expect(validateEmail).toHaveBeenCalled()
+  })
+
+  test('should call validateEmail with default emailAddress when sendEmail is called without a given emailAddress', async () => {
+    await sendEmail(mockContext, mockMessage)
+
+    expect(validateEmail).toHaveBeenCalledWith(env.notifyEmailAddress)
+  })
+
+  test('should not reject when validateEmail with default emailAddress when sendEmail is called without a given emailAddress', async () => {
+    await sendEmail(mockContext, mockMessage)
+
+    expect(validateEmail).resolves()
   })
 
   test('should call notifyClient.sendEmail when a valid message is received', async () => {
