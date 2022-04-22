@@ -89,14 +89,7 @@ describe('send emails', () => {
   test('should call sendEmail with context, message and default emailAddresses and reference when valid context and message are received', async () => {
     await sendEmails(mockContext, mockMessage)
 
-    expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage, env.notifyEmailAddresses, mockDefaultReference)
-  })
-
-  test('should fail gracefully if sendEmail rejects', async () => {
-    sendEmail.mockRejectedValue({ Error: 'Oh dear' })
-
-    await sendEmails(mockContext, mockMessage)
-
-    expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage, env.notifyEmailAddresses, mockDefaultReference)
+    expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[0], mockDefaultReference])
+    expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[1], mockDefaultReference])
   })
 })
