@@ -8,6 +8,7 @@ let NotifyClient
 let validateEmail
 let sendEmail
 let emailAddress
+let defaultEmailAddress
 let defaultReference
 
 describe('send email', () => {
@@ -15,8 +16,8 @@ describe('send email', () => {
     jest.clearAllMocks()
     jest.resetModules()
 
-    jest.mock('../ffc-pay-alerts/notify/validate-message')
-    validateEmail = require('../ffc-pay-alerts/notify/validate-email')
+    jest.mock('../../ffc-pay-alerts/notify/validate-email')
+    validateEmail = require('../../ffc-pay-alerts/notify/validate-email')
 
     NotifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
@@ -25,6 +26,7 @@ describe('send email', () => {
 
     emailAddress = 'test@test.com'
 
+    defaultEmailAddress = env.notifyEmailAddress
     defaultReference = ''
   })
 
@@ -46,13 +48,61 @@ describe('send email', () => {
   test('should call validateEmail with default emailAddress when sendEmail is called without a given emailAddress', async () => {
     await sendEmail(mockContext, mockMessage)
 
-    expect(validateEmail).toHaveBeenCalledWith(env.notifyEmailAddress)
+    expect(validateEmail).toHaveBeenCalledWith(mockContext, defaultEmailAddress)
   })
 
-  test('should not reject when validateEmail with default emailAddress when sendEmail is called without a given emailAddress', async () => {
+  test('should not reject on validateEmail with default emailAddress when sendEmail is called without a given emailAddress', async () => {
     await sendEmail(mockContext, mockMessage)
 
-    expect(validateEmail).resolves()
+    expect(validateEmail).not.toThrow()
+  })
+
+  test('should not reject with default emailAddress when sendEmail is called without a given emailAddress', async () => {
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).not.toThrow()
+  })
+
+  test('should throw an error when validateEmail rejects', async () => {
+    validateEmail.mockRejectedValue(new Error('must be a string'))
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow()
+  })
+
+  test('should throw Error when validateEmail rejects', async () => {
+    validateEmail.mockRejectedValue(new Error('must be a string'))
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow(Error)
+  })
+
+  test('should throw Error when validateEmail rejects', async () => {
+    validateEmail.mockRejectedValue(new Error('must be a string'))
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrow(Error)
+  })
+
+  test('should throw error which starts with "Oh dear" when validateEmail rejects', async () => {
+    validateEmail.mockRejectedValue(new Error('must be a string'))
+
+    const wrapper = async () => {
+      await sendEmail(mockContext, mockMessage)
+    }
+
+    expect(wrapper).rejects.toThrowError(/^Oh dear/)
   })
 
   test('should call notifyClient.sendEmail when a valid message is received', async () => {
@@ -102,7 +152,7 @@ describe('send email', () => {
     expect(wrapper).rejects.toThrow(Error)
   })
 
-  test('should throw "Oh dear" Error when sendEmail rejects', async () => {
+  test('should throw an error which starts with "Oh dear" when sendEmail rejects', async () => {
     NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
 
     const wrapper = async () => {
