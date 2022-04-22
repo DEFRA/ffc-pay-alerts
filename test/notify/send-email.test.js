@@ -15,7 +15,7 @@ describe('send email', () => {
     NotifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
 
-    sendEmail = require('../../ffc-pay-alerts/notify').sendEmail
+    sendEmail = require('../../ffc-pay-alerts/notify/send-email')
 
     mockMessage = {
       name: 'test',
