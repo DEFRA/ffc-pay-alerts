@@ -3,5 +3,5 @@ module.exports = {
   notifyEmailTemplateId: 'NOTIFY EMAIL TEMPLATE STRING',
   // https://docs.notifications.service.gov.uk/node.html#smoke-testing
   notifyEmailAddress: 'simulate-delivered@notifications.service.gov.uk',
-  notifyEmailAddresses: ['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk']
+  notifyEmailAddresses: 'simulate-delivered@notifications.service.gov.uk,simulate-delivered@notifications.service.gov.uk'
 }
