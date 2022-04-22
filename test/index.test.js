@@ -1,9 +1,9 @@
 const mockContext = require('./mock-context')
+const mockMessage = require('./mock-context')
 
 let alert
 let validateMessage
-let sendEmail
-let mockMessage
+let sendEmails
 
 describe('alert', () => {
   beforeEach(() => {
@@ -14,25 +14,9 @@ describe('alert', () => {
     validateMessage = require('../ffc-pay-alerts/validate-message')
 
     jest.mock('../ffc-pay-alerts/notify')
-    sendEmail = require('../ffc-pay-alerts/notify').sendEmail
+    sendEmails = require('../ffc-pay-alerts/notify').sendEmails
 
     alert = require('../ffc-pay-alerts')
-
-    mockMessage = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: 'test',
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-
-    }
   })
 
   afterEach(() => {
@@ -51,19 +35,19 @@ describe('alert', () => {
     expect(validateMessage).toHaveBeenCalledWith(mockContext, mockMessage)
   })
 
-  test('should call sendEmail when a valid message is received', async () => {
+  test('should call sendEmails when a valid message is received', async () => {
     await alert(mockContext, mockMessage)
 
-    expect(sendEmail).toHaveBeenCalled()
+    expect(sendEmails).toHaveBeenCalled()
   })
 
-  test('should call sendEmail with correct parameters when a valid message is received', async () => {
+  test('should call sendEmails with correct parameters when a valid message is received', async () => {
     await alert(mockContext, mockMessage)
 
-    expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage)
+    expect(sendEmails).toHaveBeenCalledWith(mockContext, mockMessage)
   })
 
-  test('should not call sendEmail when validateMessage throws Error', async () => {
+  test('should not call sendEmails when validateMessage throws Error', async () => {
     validateMessage.mockImplementation(() => { throw new Error() })
 
     try {
@@ -71,7 +55,7 @@ describe('alert', () => {
     } catch (err) {
       expect(validateMessage).toHaveBeenCalled()
       expect(validateMessage).toThrowError(Error)
-      expect(sendEmail).not.toHaveBeenCalled()
+      expect(sendEmails).not.toHaveBeenCalled()
     }
   })
 })

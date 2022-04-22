@@ -1,12 +1,12 @@
 const env = require('../env')
 const mockContext = require('../mock-context')
+const mockMessage = require('../mock-message')
+const mockReference = require('../mock-reference')
 
 let sendEmail
 let sendEmails
-let mockMessage
 let emailAddresses
-let mockReference
-let mockDefaultReference
+let defaultReference
 
 describe('send emails', () => {
   beforeEach(() => {
@@ -18,25 +18,9 @@ describe('send emails', () => {
 
     sendEmails = require('../../ffc-pay-alerts/notify/send-emails')
 
-    mockMessage = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: 'test',
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
-
     emailAddresses = ['test@test.com', 'not-real@test.com']
 
-    mockReference = 'fa5aff10-24e7-4b57-986e-00fb624dc5d4'
-    mockDefaultReference = ''
+    defaultReference = ''
   })
 
   afterEach(() => {
@@ -89,8 +73,8 @@ describe('send emails', () => {
   test('should call sendEmail with context, message and default emailAddresses and reference when valid context and message are received', async () => {
     await sendEmails(mockContext, mockMessage)
 
-    expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[0], mockDefaultReference])
-    expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[1], mockDefaultReference])
+    expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[0], defaultReference])
+    expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, env.notifyEmailAddresses[1], defaultReference])
   })
 
   test('should throw error when sendEmail rejects', async () => {

@@ -1,11 +1,12 @@
 const flatten = require('flat')
 const env = require('../env')
 const mockContext = require('../mock-context')
+const mockMessage = require('../mock-context')
+const mockReference = require('../mock-reference')
 
 let NotifyClient
 let sendEmail
-let mockMessage
-let mockReference
+let defaultReference
 
 describe('send email', () => {
   beforeEach(() => {
@@ -17,21 +18,7 @@ describe('send email', () => {
 
     sendEmail = require('../../ffc-pay-alerts/notify/send-email')
 
-    mockMessage = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: 'test',
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
-    mockReference = ''
+    defaultReference = ''
   })
 
   afterEach(() => {
@@ -56,7 +43,7 @@ describe('send email', () => {
     const notifyClientMockInstance = NotifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
       personalisation: flatten(mockMessage),
-      reference: mockReference
+      reference: defaultReference
     })
   })
 
