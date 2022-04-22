@@ -91,4 +91,12 @@ describe('send emails', () => {
 
     expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage, env.notifyEmailAddresses, mockDefaultReference)
   })
+
+  test('should fail gracefully if sendEmail rejects', async () => {
+    sendEmail.mockRejectedValue({ Error: 'Oh dear' })
+
+    await sendEmails(mockContext, mockMessage)
+
+    expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage, env.notifyEmailAddresses, mockDefaultReference)
+  })
 })
