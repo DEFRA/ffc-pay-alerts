@@ -93,6 +93,9 @@ Use the convenience script, `./scripts/start`
 
 # Run tests with file watch
 ./scripts/test -w
+
+# Run tests in debug mode
+./scripts/test -d
 ```
 
 ## CI pipeline
