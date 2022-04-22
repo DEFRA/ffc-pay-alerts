@@ -6,6 +6,7 @@ const mockReference = require('../mock-reference')
 
 let NotifyClient
 let sendEmail
+let emailAddress
 let defaultReference
 
 describe('send email', () => {
@@ -17,6 +18,8 @@ describe('send email', () => {
     jest.mock('notifications-node-client')
 
     sendEmail = require('../../ffc-pay-alerts/notify/send-email')
+
+    emailAddress = 'test@test.com'
 
     defaultReference = ''
   })
@@ -44,6 +47,16 @@ describe('send email', () => {
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
       personalisation: flatten(mockMessage),
       reference: defaultReference
+    })
+  })
+
+  test('should call notifyClient.sendEmail with correct parameters when a emailAddress and reference are received', async () => {
+    await sendEmail(mockContext, mockMessage, emailAddress, mockReference)
+
+    const notifyClientMockInstance = NotifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, emailAddress, {
+      personalisation: flatten(mockMessage),
+      reference: mockReference
     })
   })
 
