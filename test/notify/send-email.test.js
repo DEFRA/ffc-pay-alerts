@@ -1,6 +1,6 @@
 const flatten = require('flat')
-const env = require('./env')
-const mockContext = require('./mock-context')
+const env = require('../env')
+const mockContext = require('../mock-context')
 
 let NotifyClient
 let sendEmail
@@ -15,7 +15,7 @@ describe('send email', () => {
     NotifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
 
-    sendEmail = require('../ffc-pay-alerts/notify')
+    sendEmail = require('../../ffc-pay-alerts/notify').sendEmail
 
     mockMessage = {
       name: 'test',

@@ -14,7 +14,7 @@ describe('alert', () => {
     validateMessage = require('../ffc-pay-alerts/validate-message')
 
     jest.mock('../ffc-pay-alerts/notify')
-    sendEmail = require('../ffc-pay-alerts/notify')
+    sendEmail = require('../ffc-pay-alerts/notify').sendEmail
 
     alert = require('../ffc-pay-alerts')
 

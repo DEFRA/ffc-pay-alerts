@@ -3,7 +3,7 @@ const {
   notifyApiKey,
   notifyEmailTemplateId,
   notifyEmailAddress
-} = require('./config')
+} = require('../config')
 
 const NotifyClient = require('notifications-node-client').NotifyClient
 const notifyClient = new NotifyClient(notifyApiKey)
