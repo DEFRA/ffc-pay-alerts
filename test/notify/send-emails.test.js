@@ -6,6 +6,7 @@ const mockReference = require('../mock-reference')
 let sendEmail
 let sendEmails
 let emailAddresses
+let defaultEmailAddresses
 let defaultReference
 
 describe('send emails', () => {
@@ -20,6 +21,7 @@ describe('send emails', () => {
 
     emailAddresses = ['test@test.com', 'not-real@test.com']
 
+    defaultEmailAddresses = env.notifyEmailAddresses.split(',')
     defaultReference = ''
   })
 
@@ -71,8 +73,6 @@ describe('send emails', () => {
   })
 
   test('should call sendEmail with context, message and default emailAddresses and reference when valid context and message are received', async () => {
-    const defaultEmailAddresses = env.notifyEmailAddresses.split(',')
-
     await sendEmails(mockContext, mockMessage)
 
     expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, defaultEmailAddresses[0], defaultReference])
