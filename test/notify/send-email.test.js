@@ -4,7 +4,7 @@ const mockContext = require('../mock-context')
 const mockMessage = require('../mock-context')
 const mockReference = require('../mock-reference')
 
-let NotifyClient
+let notifyClient
 let validateEmail
 let sendEmail
 let emailAddress
@@ -19,7 +19,7 @@ describe('send email', () => {
     jest.mock('../../ffc-pay-alerts/notify/validate-email')
     validateEmail = require('../../ffc-pay-alerts/notify/validate-email')
 
-    NotifyClient = require('notifications-node-client').NotifyClient
+    notifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
 
     sendEmail = require('../../ffc-pay-alerts/notify/send-email')
@@ -35,8 +35,8 @@ describe('send email', () => {
   })
 
   test('should correctly configure Notify client on module import', async () => {
-    expect(NotifyClient).toHaveBeenCalledTimes(1)
-    expect(NotifyClient).toHaveBeenCalledWith(env.notifyApiKey)
+    expect(notifyClient).toHaveBeenCalledTimes(1)
+    expect(notifyClient).toHaveBeenCalledWith(env.notifyApiKey)
   })
 
   test('should call validateEmail when a valid message is received', async () => {
@@ -85,16 +85,6 @@ describe('send email', () => {
     expect(wrapper).rejects.toThrow(Error)
   })
 
-  test('should throw Error when validateEmail rejects', async () => {
-    validateEmail.mockRejectedValue(new Error('must be a string'))
-
-    const wrapper = async () => {
-      await sendEmail(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrow(Error)
-  })
-
   test('should throw error which starts with "Oh dear" when validateEmail rejects', async () => {
     validateEmail.mockRejectedValue(new Error('must be a string'))
 
@@ -108,14 +98,14 @@ describe('send email', () => {
   test('should call notifyClient.sendEmail when a valid message is received', async () => {
     await sendEmail(mockContext, mockMessage)
 
-    const notifyClientMockInstance = NotifyClient.mock.instances[0]
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledTimes(1)
   })
 
   test('should call notifyClient.sendEmail with correct parameters when a valid message is received', async () => {
     await sendEmail(mockContext, mockMessage)
 
-    const notifyClientMockInstance = NotifyClient.mock.instances[0]
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
       personalisation: flatten(mockMessage),
       reference: defaultReference
@@ -125,7 +115,7 @@ describe('send email', () => {
   test('should call notifyClient.sendEmail with correct parameters when a emailAddress and reference are received', async () => {
     await sendEmail(mockContext, mockMessage, emailAddress, mockReference)
 
-    const notifyClientMockInstance = NotifyClient.mock.instances[0]
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, emailAddress, {
       personalisation: flatten(mockMessage),
       reference: mockReference
@@ -133,7 +123,7 @@ describe('send email', () => {
   })
 
   test('should throw error when sendEmail rejects', async () => {
-    NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
+    notifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
 
     const wrapper = async () => {
       await sendEmail(mockContext, mockMessage)
@@ -143,7 +133,7 @@ describe('send email', () => {
   })
 
   test('should throw Error when sendEmail rejects', async () => {
-    NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
+    notifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
 
     const wrapper = async () => {
       await sendEmail(mockContext, mockMessage)
@@ -153,7 +143,7 @@ describe('send email', () => {
   })
 
   test('should throw an error which starts with "Oh dear" when sendEmail rejects', async () => {
-    NotifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
+    notifyClient.prototype.sendEmail.mockRejectedValue({ Error: 'Request failed with status code 403' })
 
     const wrapper = async () => {
       await sendEmail(mockContext, mockMessage)
