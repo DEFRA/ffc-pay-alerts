@@ -24,7 +24,7 @@ The message contains the text to be displayed in the email.
 		"action": {
 			"type": "error",
 			"message": "Enrichment needed",
-			"timestamp":  "2022-02-22T15:00:00.000Z",
+			"timestamp": "2022-02-22T15:00:00.000Z",
       "data": {}
 		}
 	}
@@ -74,7 +74,8 @@ It's likely that the Service Bus topic and subscription names will need to be am
     "ALERT_SUBSCRIPTION_ADDRESS": "ffc-pay-alerts",
     "NOTIFY_API_KEY": "NOTIFY TEST, TEAM OR LIVE API KEY STRING",
     "NOTIFY_EMAIL_TEMPLATE_ID" : "NOTIFY EMAIL TEMPLATE STRING",
-    "NOTIFY_EMAIL_ADDRESS" : "RPA OPERATIONS EMAIL ADDRESS STRING",    
+    "NOTIFY_EMAIL_ADDRESS" : "RPA OPERATIONS EMAIL ADDRESS STRING",
+    "NOTIFY_EMAIL_ADDRESSES" : "RPA OPERATIONS EMAIL ADDRESSES STRING SEPARATED BY COMMAS"
   }
 }
 
@@ -92,6 +93,9 @@ Use the convenience script, `./scripts/start`
 
 # Run tests with file watch
 ./scripts/test -w
+
+# Run tests in debug mode
+./scripts/test -d
 ```
 
 ## CI pipeline

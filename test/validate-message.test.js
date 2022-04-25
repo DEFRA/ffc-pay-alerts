@@ -5,32 +5,19 @@ let mockMessage
 
 describe('validate message', () => {
   beforeEach(() => {
-    mockMessage = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: 'test',
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
+    mockMessage = require('./mock-message')
   })
 
   afterEach(() => {
     jest.clearAllMocks()
   })
 
-  test('should not throw Error when a valid message value is received', async () => {
+  test('should not throw an error when a valid message value is received', async () => {
     const wrapper = async () => {
       await validateMessage(mockContext, mockMessage)
     }
 
-    expect(wrapper).not.toThrowError(Error)
+    expect(wrapper).not.toThrow()
   })
 
   test('should throw Error when an invalid message value is received', async () => {
