@@ -10,7 +10,7 @@
     "lint": "standard",
     "start": "func start -p 7070",
     "start:verbose": "func start -p 7070 --verbose",
-    "test": "jest test/notify/send-emails.test.js",
+    "test": "jest",
     "test:watch": "jest --coverage=false --onlyChanged --watch",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js"
   },
