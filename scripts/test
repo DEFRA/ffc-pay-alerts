@@ -10,7 +10,8 @@ show_help() {
 
     Options:
       -w, --watch   watch tests
-      -h, --help    display this help text
+      -d, --debug   debug tests
+      -h, --help    display this help text      
     "
 }
 
@@ -18,6 +19,10 @@ while :; do
   case $1 in
     -w|--watch)
       watch="true"
+      ;;
+
+    -d|--debug)
+      debug="true"
       ;;
 
     -h|--help)   # Call a "show_help" function to display a synopsis, then exit.
@@ -34,6 +39,8 @@ done
 # Run tests
 if [ "${watch}" = "true" ]; then
   npm run test:watch
+elif [ "${debug}" = "true" ]; then
+  npm run test:debug
 else
   npm run test
 fi

@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "name": "mySbMsg",
+      "name": "message",
       "type": "serviceBusTrigger",
       "direction": "in",
       "topicName": "%ALERT_TOPIC_ADDRESS%",
