@@ -42,7 +42,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
   })
 
-  test('should return an empty array when an event not matching the criteria for dev or rpa is given', async () => {
+  test('should return an empty array when an event not matching any criteria is given', async () => {
     event = { a: 'not a matching criteria' }
 
     const result = filterEmailAddresses(event)
@@ -115,7 +115,25 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an event not matching the criteria are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an event matching the criteria for rpa are given', async () => {
+    event = rpaEvents[0]
+    emailAddresses = ['already@email', 'given@email']
+
+    const result = filterEmailAddresses(event, emailAddresses)
+
+    expect(result).toStrictEqual(['already@email', 'given@email', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+  })
+
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an event matching the criteria for dev and rpa are given', async () => {
+    event = 'other'
+    emailAddresses = ['already@email', 'given@email']
+
+    const result = filterEmailAddresses(event, emailAddresses)
+
+    expect(result).toStrictEqual(['already@email', 'given@email', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+  })
+
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an event not matching any criteria are given', async () => {
     event = { a: 'not a matching criteria' }
     emailAddresses = ['already@email', 'given@email']
 
@@ -124,7 +142,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an empty event are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an empty event are given', async () => {
     event = {}
     emailAddresses = ['already@email', 'given@email']
 
@@ -133,7 +151,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of empty string are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of empty string are given', async () => {
     event = ''
     emailAddresses = ['already@email', 'given@email']
 
@@ -142,7 +160,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of string are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of string are given', async () => {
     event = 'not-a-valid-value'
     emailAddresses = ['already@email', 'given@email']
 
@@ -151,7 +169,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of number are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of number are given', async () => {
     event = 1
     emailAddresses = ['already@email', 'given@email']
 
@@ -160,7 +178,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of boolean are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of boolean are given', async () => {
     event = true
     emailAddresses = ['already@email', 'given@email']
 
@@ -169,7 +187,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of boolean are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of boolean are given', async () => {
     event = undefined
     emailAddresses = ['already@email', 'given@email']
 
@@ -178,7 +196,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a flat pre-populated filter array and an incorrect event type of boolean are given', async () => {
+  test('should return a flat string array when a flat pre-populated emailAddresses array and an incorrect event type of boolean are given', async () => {
     event = null
     emailAddresses = ['already@email', 'given@email']
 
@@ -187,7 +205,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email'])
   })
 
-  test('should return a flat string array when a staggered pre-populated filter array and an event matching the criteria are given', async () => {
+  test('should return a flat string array when a staggered pre-populated emailAddresses array and an event matching the criteria are given', async () => {
     event = devEvents[0]
     emailAddresses = ['already@email', 'given@email']
 
@@ -196,7 +214,7 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual(['already@email', 'given@email', 'simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
   })
 
-  test('should return a flat string array when a nested pre-populated filter array and an event matching the criteria for dev are given', async () => {
+  test('should return a flat string array when a nested pre-populated emailAddresses array and an event matching the criteria for dev are given', async () => {
     event = devEvents[0]
     emailAddresses = ['already@email', 'given@email']
 
