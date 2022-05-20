@@ -1,6 +1,8 @@
 const eventFilterHandlers = require('./handlers')
 
-const filterEmailAddresses = (event, filteredEmailAddresses = []) => {
+const filterEmailAddresses = (event, emailAddresses = []) => {
+  const filteredEmailAddresses = [...emailAddresses]
+
   for (const handle of Object.values(eventFilterHandlers)) {
     filteredEmailAddresses.push(handle(filteredEmailAddresses, event))
   }
