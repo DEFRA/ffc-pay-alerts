@@ -1,4 +1,4 @@
 module.exports = [
-  'finance',
-  'other'
+  'mock-event-name',
+  'payment-request-blocked'
 ]
