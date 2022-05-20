@@ -26,94 +26,84 @@ describe('filter email addresses by event', () => {
     jest.resetModules()
   })
 
-  describe('unit test', () => {
-    test('should call the devHandler with the default filteredEmailAddresses and the event when filterEmailAddresses is called with an event', async () => {
-      event = 'payment-requests'
+  test('should call the devHandler when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-      filterEmailAddresses(event)
+    filterEmailAddresses(event)
 
-      expect(devHandler).toHaveBeenCalledWith([[], []], event)
-    })
+    expect(devHandler).toHaveBeenCalled()
+  })
 
-    // test('should call the devHandler when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+  test('should call the devHandler once when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-    //   filterEmailAddresses(event)
+    filterEmailAddresses(event)
 
-    //   expect(devHandler).toHaveBeenCalled()
-    // })
+    expect(devHandler).toHaveBeenCalledTimes(1)
+  })
 
-    // test('should call the devHandler once when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+  test('should call the devHandler with the default filteredEmailAddresses and the event when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-    //   filterEmailAddresses(event)
+    filterEmailAddresses(event)
 
-    //   expect(devHandler).toHaveBeenCalledTimes(1)
-    // })
+    expect(devHandler).toHaveBeenCalledWith([[], []], event) // should be filteredEmailAddresses and event
+  })
 
-    // test('should call the devHandler with the default filteredEmailAddresses and the event when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+  test('should call the rpaHandler when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-    //   filterEmailAddresses(event)
-    //   // filterEmailAddresses internal array ain't reseting
-    //   expect(devHandler).toHaveBeenCalledWith(filteredEmailAddresses, event)
-    // })
+    filterEmailAddresses(event)
 
-    // test('should call the rpaHandler when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+    expect(rpaHandler).toHaveBeenCalled()
+  })
 
-    //   filterEmailAddresses(event)
+  test('should call the rpaHandler once when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-    //   expect(rpaHandler).toHaveBeenCalled()
-    // })
+    filterEmailAddresses(event)
 
-    // test('should call the rpaHandler once when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+    expect(rpaHandler).toHaveBeenCalledTimes(1)
+  })
 
-    //   filterEmailAddresses(event)
+  test('should call the rpaHandler with the default filteredEmailAddresses and the event when filterEmailAddresses is called with an event', async () => {
+    event = 'payment-requests'
 
-    //   expect(rpaHandler).toHaveBeenCalledTimes(1)
-    // })
+    filterEmailAddresses(event)
 
-    // test('should call the rpaHandler with the default filteredEmailAddresses and the event when filterEmailAddresses is called with an event', async () => {
-    //   event = 'payment-requests'
+    expect(rpaHandler).toHaveBeenCalledWith([[], []], event) // should be filteredEmailAddresses and event
+  })
 
-    //   filterEmailAddresses(event)
+  test('should return a flat array of each handler with no null or undefined values when devHandler returns a flat array and rpaHandler returns an empty array', async () => {
+    event = 'payment-requests'
 
-    //   expect(rpaHandler).toHaveBeenCalledWith(filteredEmailAddresses, event)
-    // })
+    devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
+    rpaHandler.mockImplementation(() => [])
 
-    // test('should return a flat array of each handler with no null or undefined values when devHandler returns a flat array and rpaHandler returns an empty array', async () => {
-    //   event = 'payment-requests'
+    const result = filterEmailAddresses(event)
 
-    //   devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    //   rpaHandler.mockImplementation(() => [])
+    expect(result).toStrictEqual(['dev1@email', 'dev2@email'])
+  })
 
-    //   const result = filterEmailAddresses(event)
+  test('should return a flat array of each handler with no null or undefined values when devHandler returns an empty array and rpaHandler returns a flat array', async () => {
+    event = 'finance'
 
-    //   expect(result).toStrictEqual(['dev1@email', 'dev2@email'])
-    // })
+    devHandler.mockImplementation(() => [])
+    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
 
-    // test('should return a flat array of each handler with no null or undefined values when devHandler returns an empty array and rpaHandler returns a flat array', async () => {
-    //   event = 'finance'
+    const result = filterEmailAddresses(event)
 
-    //   devHandler.mockImplementation(() => [])
-    //   rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
+    expect(result).toStrictEqual(['rpa1@email', 'rpa2@email'])
+  })
 
-    //   const result = filterEmailAddresses(event)
+  test('should return a flat array of each handler with no null or undefined values when devHandler returns a flat array and rpaHandler returns a flat array', async () => {
+    event = 'shared'
 
-    //   expect(result).toStrictEqual(['rpa1@email', 'rpa2@email'])
-    // })
+    devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
+    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
 
-    // test('should return a flat array of each handler with no null or undefined values when devHandler returns a flat array and rpaHandler returns a flat array', async () => {
-    //   event = 'shared'
+    const result = filterEmailAddresses(event)
 
-    //   devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    //   rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
-
-    //   const result = filterEmailAddresses(event)
-
-    //   expect(result).toStrictEqual(['dev1@email', 'dev2@email', 'rpa1@email', 'rpa2@email'])
-    // })
+    expect(result).toStrictEqual(['dev1@email', 'dev2@email', 'rpa1@email', 'rpa2@email'])
   })
 })
