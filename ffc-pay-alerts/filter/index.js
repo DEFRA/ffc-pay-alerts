@@ -1,3 +1,3 @@
-const filterEmailAddresses = require('./filter-alerts')
+const filterEmailAddresses = require('./filter-email-addresses')
 
 module.exports = filterEmailAddresses

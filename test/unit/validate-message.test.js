@@ -1,11 +1,11 @@
-const validateMessage = require('../ffc-pay-alerts/validate-message')
-const mockContext = require('./mock-context')
+const validateMessage = require('../../ffc-pay-alerts/validate-message')
+const mockContext = require('../mock-context')
 
 let mockMessage
 
 describe('validate message', () => {
   beforeEach(() => {
-    mockMessage = require('./mock-message')
+    mockMessage = require('../mock-message')
   })
 
   afterEach(() => {

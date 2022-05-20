@@ -1,5 +1,5 @@
-const mockContext = require('./mock-context')
-const mockMessage = require('./mock-context')
+const mockContext = require('../mock-context')
+const mockMessage = require('../mock-context')
 
 let alert
 let validateMessage
@@ -10,13 +10,13 @@ describe('alert', () => {
     jest.clearAllMocks()
     jest.resetModules()
 
-    jest.mock('../ffc-pay-alerts/validate-message')
-    validateMessage = require('../ffc-pay-alerts/validate-message')
+    jest.mock('../../ffc-pay-alerts/validate-message')
+    validateMessage = require('../../ffc-pay-alerts/validate-message')
 
-    jest.mock('../ffc-pay-alerts/notify')
-    sendEmails = require('../ffc-pay-alerts/notify').sendEmails
+    jest.mock('../../ffc-pay-alerts/notify')
+    sendEmails = require('../../ffc-pay-alerts/notify').sendEmails
 
-    alert = require('../ffc-pay-alerts')
+    alert = require('../../ffc-pay-alerts')
   })
 
   afterEach(() => {

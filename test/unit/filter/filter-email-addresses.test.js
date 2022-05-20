@@ -8,16 +8,16 @@ let event
 describe('filter email addresses by event', () => {
   beforeEach(() => {
     emailAddresses = []
-    event = require('../mock-event')
+    event = require('../../mock-event')
 
-    filterEmailAddresses = require('../../ffc-pay-alerts/filter/filter-email-addresses')
+    filterEmailAddresses = require('../../../ffc-pay-alerts/filter/filter-email-addresses')
 
-    jest.mock('../../ffc-pay-alerts/filter/handlers/dev-handler')
-    devHandler = require('../../ffc-pay-alerts/filter/handlers/dev-handler')
+    jest.mock('../../../ffc-pay-alerts/filter/handlers/dev-handler')
+    devHandler = require('../../../ffc-pay-alerts/filter/handlers/dev-handler')
     devHandler.mockImplementation(() => [])
 
-    jest.mock('../../ffc-pay-alerts/filter/handlers/rpa-handler')
-    rpaHandler = require('../../ffc-pay-alerts/filter/handlers/rpa-handler')
+    jest.mock('../../../ffc-pay-alerts/filter/handlers/rpa-handler')
+    rpaHandler = require('../../../ffc-pay-alerts/filter/handlers/rpa-handler')
     rpaHandler.mockImplementation(() => [])
   })
 

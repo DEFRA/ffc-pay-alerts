@@ -1,5 +1,5 @@
-const validateEmail = require('../../ffc-pay-alerts/notify/validate-email')
-const mockContext = require('../mock-context')
+const validateEmail = require('../../../ffc-pay-alerts/notify/validate-email')
+const mockContext = require('../../mock-context')
 
 let emailAddress
 
