@@ -1,11 +1,11 @@
 const { devEmailAddresses } = require('../../config')
 const { devEvents } = require('../config')
 
-const devEventFilterHandle = (filteredEmailAddresses, event) => {
+const devEventFilterHandle = (event) => {
   if (devEvents.includes(event)) {
-    filteredEmailAddresses.push(devEmailAddresses.split(',').flat())
+    return devEmailAddresses.split(',').flat()
   }
-  return filteredEmailAddresses.flat()
+  return []
 }
 
 module.exports = devEventFilterHandle

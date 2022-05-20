@@ -1,12 +1,12 @@
-const devHandler = require('../../../../ffc-pay-alerts/filter/handlers/dev-handler')
-const { devEvents } = require('../../../../ffc-pay-alerts/filter/config')
+const devHandler = require('../../../ffc-pay-alerts/filter/handlers/dev-handler')
+const { devEvents } = require('../../../ffc-pay-alerts/filter/config')
 
 let event
 let filteredEmailAddresses
 
 describe('filter email addresses by event', () => {
   beforeEach(() => {
-    event = require('../../../mock-event')
+    event = require('../../mock-event')
     filteredEmailAddresses = []
   })
 

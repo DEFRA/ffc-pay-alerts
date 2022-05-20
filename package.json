@@ -11,9 +11,9 @@
     "start": "func start -p 7070",
     "start:detached": "func start -p 7070 1> /dev/null 2> /dev/null &",
     "start:verbose": "func start -p 7070 --verbose",
-    "test": "jest",
+    "test": "jest test/integration/filter-email-addresses.test.js",
     "test:watch": "jest --coverage=false --onlyChanged --watch",
-    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js test/filter/filter-alerts.test.js "
+    "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js test/integration/filter-email-addresses.test.js"
   },
   "standard": {
     "globals": [

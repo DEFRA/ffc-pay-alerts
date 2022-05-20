@@ -1,11 +1,11 @@
 const { rpaEmailAddresses } = require('../../config')
 const { rpaEvents } = require('../config')
 
-const rpaEventFilterHandle = (filteredEmailAddresses, event) => {
+const rpaEventFilterHandle = (event) => {
   if (rpaEvents.includes(event)) {
-    filteredEmailAddresses.push(rpaEmailAddresses)
+    return rpaEmailAddresses.split(',').flat()
   }
-  return filteredEmailAddresses
+  return []
 }
 
 module.exports = rpaEventFilterHandle
