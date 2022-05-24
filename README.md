@@ -9,25 +9,27 @@ The message contains the text to be displayed in the email.
 
 - Node.js LTS 16
 - access to a GOV.UK Notify account
-- create a [GOV.UK Notify email template](https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages) with the Personalisation of `((test))` included where you'd like the message text to appear
+- create a [GOV.UK Notify email template](https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages) and use [Personalisation](https://www.notifications.service.gov.uk/using-notify/guidance/edit-and-format-messages#personalised-content) to customise the dynamic text contained in the email
 - [Azure Functions Core Tools V3](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Clinux%2Ccsharp%2Cportal%2Cbash)
 
 ## Example message
 
 ```
 {
-	"name": "Enrichment needed for payment request",
-	"properties": {
-		"id": "1234567890",
-		"checkpoint": "acr-test-log-web",
-		"status": "in progress",
-		"action": {
-			"type": "error",
-			"message": "Enrichment needed",
-			"timestamp": "2022-02-22T15:00:00.000Z",
-      "data": {}
-		}
-	}
+   "name":"batch-processing-error",
+   "properties":{
+      "id":"2823b94b-ee45-496c-aea1-e6ff8962beff",
+      "checkpoint":"ffc-pay-batch-processor-local",
+      "status":"error",
+      "action":{
+         "type":"error",
+         "message":"Invalid file",
+         "data":{
+            "filename":"SITIELM0004_INVALID_FILE_20220307172712493.dat"
+         },
+         "timestamp":"2022-05-20T15:59:19.158Z"
+      }
+   }
 }
 ```
 
@@ -74,8 +76,8 @@ It's likely that the Service Bus topic and subscription names will need to be am
     "ALERT_SUBSCRIPTION_ADDRESS": "ffc-pay-alerts",
     "NOTIFY_API_KEY": "NOTIFY TEST, TEAM OR LIVE API KEY STRING",
     "NOTIFY_EMAIL_TEMPLATE_ID" : "NOTIFY EMAIL TEMPLATE STRING",
-    "NOTIFY_EMAIL_ADDRESS" : "RPA OPERATIONS EMAIL ADDRESS STRING",
-    "NOTIFY_EMAIL_ADDRESSES" : "RPA OPERATIONS EMAIL ADDRESSES STRING SEPARATED BY COMMAS"
+    "DEV_EMAIL_ADDRESSES": "DEV TEAM EMAIL ADDRESSES STRING SEPARATED BY COMMAS",
+    "RPA_EMAIL_ADDRESSES": "RPA OPERATIONS EMAIL ADDRESSES STRING SEPARATED BY COMMAS"
   }
 }
 
