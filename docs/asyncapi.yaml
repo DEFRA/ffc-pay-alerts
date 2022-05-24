@@ -108,7 +108,7 @@ components:
         properties:
           name:
             type: string
-            description: Alert name
+            description: Alert name which decides which email addresses an alert is sent to
           properties:
             type: object
             properties:
