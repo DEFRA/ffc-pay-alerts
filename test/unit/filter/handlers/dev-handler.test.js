@@ -1,11 +1,15 @@
 const devHandler = require('../../../../ffc-pay-alerts/filter/handlers/dev-handler')
 const { ERROR_EVENT } = require('../../../mock-event')
 
+const { devEmailAddresses } = require('../../../env')
+
 let event
+let splitDevEmailAddresses
 
 describe('filter email addresses by event', () => {
   beforeEach(() => {
     event = ERROR_EVENT
+    splitDevEmailAddresses = devEmailAddresses.split(',').flat()
   })
 
   afterEach(() => {
@@ -16,7 +20,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when an event matching the criteria is given', async () => {
     const result = devHandler(event)
 
-    expect(result).toStrictEqual(['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+    expect(result).toStrictEqual(splitDevEmailAddresses)
   })
 
   test('should return an empty array when an event not matching the criteria is given', async () => {
@@ -86,7 +90,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a flat pre-populated filter array and an event matching the criteria is given', async () => {
     const result = devHandler(event)
 
-    expect(result).toStrictEqual(['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+    expect(result).toStrictEqual(splitDevEmailAddresses)
   })
 
   test('should return a flat string array when a flat pre-populated filter array and an event not matching the criteria is given', async () => {

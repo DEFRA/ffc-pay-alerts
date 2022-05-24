@@ -1,11 +1,15 @@
 const rpaHandler = require('../../../../ffc-pay-alerts/filter/handlers/rpa-handler')
 const { MOCK_RPA_ONLY_EVENT } = require('../../../mock-event')
 
+const { rpaEmailAddresses } = require('../../../env')
+
 let event
+let splitRpaEmailAddresses
 
 describe('filter email addresses by event', () => {
   beforeEach(() => {
     event = MOCK_RPA_ONLY_EVENT
+    splitRpaEmailAddresses = rpaEmailAddresses.split(',').flat()
   })
 
   afterEach(() => {
@@ -16,7 +20,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when an event matching the criteria is given', async () => {
     const result = rpaHandler(event)
 
-    expect(result).toStrictEqual(['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+    expect(result).toStrictEqual(splitRpaEmailAddresses)
   })
 
   test('should return an empty array when an event not matching the criteria is given', async () => {
@@ -86,7 +90,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a flat pre-populated filter array and an event matching the criteria is given', async () => {
     const result = rpaHandler(event)
 
-    expect(result).toStrictEqual(['simulate-delivered@notifications.service.gov.uk', 'simulate-delivered@notifications.service.gov.uk'])
+    expect(result).toStrictEqual(splitRpaEmailAddresses)
   })
 
   test('should return a flat string array when a flat pre-populated filter array and an event not matching the criteria is given', async () => {
