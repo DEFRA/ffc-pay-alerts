@@ -1,7 +1,7 @@
-const env = require('../env')
-const mockContext = require('../mock-context')
-const mockMessage = require('../mock-message')
-const mockReference = require('../mock-reference')
+const env = require('../../env')
+const mockContext = require('../../mock-context')
+const mockMessage = require('../../mock-message')
+const mockReference = require('../../mock-reference')
 
 let sendEmail
 let sendEmails
@@ -14,10 +14,10 @@ describe('send emails', () => {
     jest.clearAllMocks()
     jest.resetModules()
 
-    jest.mock('../../ffc-pay-alerts/notify/send-email')
-    sendEmail = require('../../ffc-pay-alerts/notify/send-email')
+    jest.mock('../../../ffc-pay-alerts/notify/send-email')
+    sendEmail = require('../../../ffc-pay-alerts/notify/send-email')
 
-    sendEmails = require('../../ffc-pay-alerts/notify/send-emails')
+    sendEmails = require('../../../ffc-pay-alerts/notify/send-emails')
 
     emailAddresses = ['test@test.com', 'not-real@test.com']
 
@@ -79,33 +79,9 @@ describe('send emails', () => {
     expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, defaultEmailAddresses[1], defaultReference])
   })
 
-  test('should throw error when sendEmail rejects', async () => {
+  test('should resolve in sendEmails, thrown error when sendEmail rejects', async () => {
     sendEmail.mockRejectedValue(new Error('Oh dear'))
 
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrow()
-  })
-
-  test('should throw Error when sendEmail rejects', async () => {
-    sendEmail.mockRejectedValue(new Error('Oh dear'))
-
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrow(Error)
-  })
-
-  test('should throw "Oh dear" Error when sendEmail rejects', async () => {
-    sendEmail.mockRejectedValue(new Error('Oh dear'))
-
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrowError(/^Oh dear/)
+    expect(sendEmails(mockContext, mockMessage)).resolves.not.toThrow()
   })
 })

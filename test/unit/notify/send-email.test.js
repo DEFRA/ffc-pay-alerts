@@ -1,8 +1,8 @@
 const flatten = require('flat')
-const env = require('../env')
-const mockContext = require('../mock-context')
-const mockMessage = require('../mock-context')
-const mockReference = require('../mock-reference')
+const env = require('../../env')
+const mockContext = require('../../mock-context')
+const mockMessage = require('../../mock-context')
+const mockReference = require('../../mock-reference')
 
 let notifyClient
 let validateEmail
@@ -16,13 +16,13 @@ describe('send email', () => {
     jest.clearAllMocks()
     jest.resetModules()
 
-    jest.mock('../../ffc-pay-alerts/notify/validate-email')
-    validateEmail = require('../../ffc-pay-alerts/notify/validate-email')
+    jest.mock('../../../ffc-pay-alerts/notify/validate-email')
+    validateEmail = require('../../../ffc-pay-alerts/notify/validate-email')
 
     notifyClient = require('notifications-node-client').NotifyClient
     jest.mock('notifications-node-client')
 
-    sendEmail = require('../../ffc-pay-alerts/notify/send-email')
+    sendEmail = require('../../../ffc-pay-alerts/notify/send-email')
 
     emailAddress = 'test@test.com'
 

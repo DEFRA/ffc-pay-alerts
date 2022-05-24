@@ -9,7 +9,11 @@ const sendEmails = async (context, message, emailAddresses = notifyEmailAddresse
   const recipients = typeof (emailAddresses) === 'string' ? emailAddresses.split(',') : emailAddresses
 
   for (const recipient of recipients) {
-    await sendEmail(context, message, recipient, reference)
+    try {
+      await sendEmail(context, message, recipient, reference)
+    } catch (err) {
+      context.log(err)
+    }
   }
 }
 
