@@ -2,6 +2,7 @@ const mockContext = require('../mock-context')
 const mockMessage = require('../mock-context')
 
 let alert
+let filterEmailAddresses
 let validateMessage
 let sendEmails
 
@@ -9,6 +10,9 @@ describe('alert', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.resetModules()
+
+    jest.mock('../../ffc-pay-alerts/filter')
+    filterEmailAddresses = require('../../ffc-pay-alerts/filter')
 
     jest.mock('../../ffc-pay-alerts/validate-message')
     validateMessage = require('../../ffc-pay-alerts/validate-message')
@@ -35,6 +39,18 @@ describe('alert', () => {
     expect(validateMessage).toHaveBeenCalledWith(mockContext, mockMessage)
   })
 
+  test('should call filterEmailAddresses when a valid message is received', async () => {
+    await alert(mockContext, mockMessage)
+
+    expect(filterEmailAddresses).toHaveBeenCalled()
+  })
+
+  test('should call filterEmailAddresses with correct parameters when a valid message is received', async () => {
+    await alert(mockContext, mockMessage)
+
+    expect(filterEmailAddresses).toHaveBeenCalledWith(mockMessage)
+  })
+
   test('should call sendEmails when a valid message is received', async () => {
     await alert(mockContext, mockMessage)
 
@@ -44,7 +60,19 @@ describe('alert', () => {
   test('should call sendEmails with correct parameters when a valid message is received', async () => {
     await alert(mockContext, mockMessage)
 
-    expect(sendEmails).toHaveBeenCalledWith(mockContext, mockMessage)
+    expect(sendEmails).toHaveBeenCalledWith(mockContext, mockMessage, filterEmailAddresses())
+  })
+
+  test('should not call filterEmailAddresses when validateMessage throws Error', async () => {
+    validateMessage.mockImplementation(() => { throw new Error() })
+
+    try {
+      await alert(mockContext, mockMessage)
+    } catch (err) {
+      expect(validateMessage).toHaveBeenCalled()
+      expect(validateMessage).toThrowError(Error)
+      expect(filterEmailAddresses).not.toHaveBeenCalled()
+    }
   })
 
   test('should not call sendEmails when validateMessage throws Error', async () => {
