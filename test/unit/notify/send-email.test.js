@@ -10,12 +10,11 @@ let sendEmail
 let emailAddress
 let defaultEmailAddress
 let defaultReference
-
 describe('send email', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.resetModules()
-
+    
     jest.mock('../../../ffc-pay-alerts/notify/validate-email')
     validateEmail = require('../../../ffc-pay-alerts/notify/validate-email')
 
@@ -23,11 +22,14 @@ describe('send email', () => {
     jest.mock('notifications-node-client')
 
     sendEmail = require('../../../ffc-pay-alerts/notify/send-email')
-
+    sendEmails = require('../../../ffc-pay-alerts/notify/send-emails')
     emailAddress = 'test@test.com'
 
     defaultEmailAddress = env.notifyEmailAddress
     defaultReference = ''
+    jest.mock('uuid')
+    const { v4: uuidv4 } = require('uuid')
+    uuidv4.mockImplementation(() => mockReference)
   })
 
   afterEach(() => {
@@ -112,6 +114,17 @@ describe('send email', () => {
     })
   })
 
+  test('should  call notifyClient.sendEmail with uuid when no reference is provided', async () => {
+
+    await sendEmail(mockContext, mockMessage)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
+      personalisation: flatten(mockMessage),
+      reference: mockReference
+    })
+  })
+
   test('should call notifyClient.sendEmail with correct parameters when a emailAddress and reference are received', async () => {
     await sendEmail(mockContext, mockMessage, emailAddress, mockReference)
 
@@ -151,4 +164,5 @@ describe('send email', () => {
 
     expect(wrapper).rejects.toThrowError(/^Oh dear/)
   })
+
 })
