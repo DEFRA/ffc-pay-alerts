@@ -84,4 +84,13 @@ describe('send emails', () => {
 
     expect(sendEmails(mockContext, mockMessage)).resolves.not.toThrow()
   })
+
+  test('confirm error thrown by sendEmail is caught and logged', async () => {
+    const errorMock = new Error('Oh dear')
+    sendEmail.mockRejectedValue(errorMock)
+    
+    await sendEmails(mockContext, mockMessage)
+    const logSpy = jest.spyOn(mockContext, 'log')
+    expect(logSpy).toHaveBeenCalledWith(errorMock)
+  })
 })
