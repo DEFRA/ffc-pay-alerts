@@ -22,6 +22,7 @@ describe('send email', () => {
     jest.mock('notifications-node-client')
 
     sendEmail = require('../../../ffc-pay-alerts/notify/send-email')
+
     emailAddress = 'test@test.com'
 
     defaultEmailAddress = env.notifyEmailAddress

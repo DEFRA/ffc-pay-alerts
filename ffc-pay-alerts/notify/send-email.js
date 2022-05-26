@@ -14,6 +14,7 @@ const notifyClient = new NotifyClient(notifyApiKey)
 const sendEmail = async (context, message, emailAddress = notifyEmailAddress, reference = uuidv4()) => {
   try {
     await validateEmail(context, emailAddress)
+
     await notifyClient.sendEmail(notifyEmailTemplateId, emailAddress, {
       personalisation: flatten(message),
       reference

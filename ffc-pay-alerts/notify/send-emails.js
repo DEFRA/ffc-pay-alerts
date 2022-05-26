@@ -1,6 +1,7 @@
 const {
   notifyEmailAddresses
 } = require('../config')
+
 const { v4: uuidv4 } = require('uuid')
 const sendEmail = require('./send-email')
 
