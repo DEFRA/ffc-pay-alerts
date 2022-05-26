@@ -27,7 +27,7 @@ describe('send email', () => {
 
     defaultEmailAddress = env.notifyEmailAddress
 
-    jest.mock('uuid', () => ({ v4: () => mockReference }));
+    jest.mock('uuid', () => ({ v4: () => mockReference }))
   })
 
   afterEach(() => {
@@ -113,7 +113,6 @@ describe('send email', () => {
   })
 
   test('should  call notifyClient.sendEmail with uuid when no reference is provided', async () => {
-
     await sendEmail(mockContext, mockMessage)
 
     const notifyClientMockInstance = notifyClient.mock.instances[0]
@@ -162,5 +161,4 @@ describe('send email', () => {
 
     expect(wrapper).rejects.toThrowError(/^Oh dear/)
   })
-
 })

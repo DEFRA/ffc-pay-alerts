@@ -22,7 +22,7 @@ describe('send emails', () => {
 
     defaultEmailAddresses = env.notifyEmailAddresses.split(',')
 
-    jest.mock('uuid', () => ({ v4: () => mockReference }));
+    jest.mock('uuid', () => ({ v4: () => mockReference }))
   })
 
   afterEach(() => {
