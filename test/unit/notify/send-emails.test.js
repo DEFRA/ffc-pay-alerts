@@ -16,6 +16,8 @@ describe('send emails', () => {
     jest.mock('../../../ffc-pay-alerts/notify/send-email')
     sendEmail = require('../../../ffc-pay-alerts/notify/send-email')
 
+    sendEmails = require('../../../ffc-pay-alerts/notify/send-emails')
+
     emailAddresses = ['test@test.com', 'not-real@test.com']
 
     defaultEmailAddresses = env.notifyEmailAddresses.split(',')
