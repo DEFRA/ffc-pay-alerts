@@ -9,12 +9,12 @@ let validateEmail
 let sendEmail
 let emailAddress
 let defaultEmailAddress
-let defaultReference
+
 describe('send email', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.resetModules()
-    
+
     jest.mock('../../../ffc-pay-alerts/notify/validate-email')
     validateEmail = require('../../../ffc-pay-alerts/notify/validate-email')
 
@@ -26,10 +26,8 @@ describe('send email', () => {
     emailAddress = 'test@test.com'
 
     defaultEmailAddress = env.notifyEmailAddress
-    defaultReference = ''
-    jest.mock('uuid')
-    const { v4: uuidv4 } = require('uuid')
-    uuidv4.mockImplementation(() => mockReference)
+
+    jest.mock('uuid', () => ({ v4: () => mockReference }));
   })
 
   afterEach(() => {
@@ -110,7 +108,7 @@ describe('send email', () => {
     const notifyClientMockInstance = notifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).not.toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
       personalisation: flatten(mockMessage),
-      reference: defaultReference
+      reference: ''
     })
   })
 
