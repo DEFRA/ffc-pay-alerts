@@ -79,7 +79,7 @@ describe('send emails', () => {
     expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, defaultEmailAddresses[1], mockReference])
   })
 
-  test('should resolve in sendEmails, thrown error when sendEmail rejects', async () => {
+  test('should handle and resolve any thrown error from sendEmail', async () => {
     sendEmail.mockRejectedValue(new Error('Oh dear'))
 
     expect(sendEmails(mockContext, mockMessage)).resolves.not.toThrow()
