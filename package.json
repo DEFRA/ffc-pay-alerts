@@ -11,7 +11,9 @@
     "start": "func start -p 7070",
     "start:detached": "func start -p 7070 1> /dev/null 2> /dev/null &",
     "start:verbose": "func start -p 7070 --verbose",
+    "pretest": "npm run test:lint",
     "test": "jest",
+    "test:lint": "standard",
     "test:watch": "jest --coverage=false --onlyChanged --watch",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js"
   },
