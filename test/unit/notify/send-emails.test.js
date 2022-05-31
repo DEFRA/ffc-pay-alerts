@@ -7,7 +7,6 @@ let sendEmail
 let sendEmails
 let emailAddresses
 let defaultEmailAddresses
-let defaultReference
 
 describe('send emails', () => {
   beforeEach(() => {
@@ -22,7 +21,8 @@ describe('send emails', () => {
     emailAddresses = ['test@test.com', 'not-real@test.com']
 
     defaultEmailAddresses = env.notifyEmailAddresses.split(',')
-    defaultReference = ''
+
+    jest.mock('uuid', () => ({ v4: () => mockReference }))
   })
 
   afterEach(() => {
@@ -75,37 +75,22 @@ describe('send emails', () => {
   test('should call sendEmail with context, message and default emailAddresses and reference when valid context and message are received', async () => {
     await sendEmails(mockContext, mockMessage)
 
-    expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, defaultEmailAddresses[0], defaultReference])
-    expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, defaultEmailAddresses[1], defaultReference])
+    expect(sendEmail.mock.calls[0]).toEqual([mockContext, mockMessage, defaultEmailAddresses[0], mockReference])
+    expect(sendEmail.mock.calls[1]).toEqual([mockContext, mockMessage, defaultEmailAddresses[1], mockReference])
   })
 
-  test('should throw error when sendEmail rejects', async () => {
+  test('should handle and resolve any thrown error from sendEmail', async () => {
     sendEmail.mockRejectedValue(new Error('Oh dear'))
 
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrow()
+    expect(sendEmails(mockContext, mockMessage)).resolves.not.toThrow()
   })
 
-  test('should throw Error when sendEmail rejects', async () => {
-    sendEmail.mockRejectedValue(new Error('Oh dear'))
+  test('confirm error thrown by sendEmail is caught and logged', async () => {
+    const errorMock = new Error('Oh dear')
+    const logSpy = jest.spyOn(mockContext, 'log')
+    sendEmail.mockRejectedValue(errorMock)
+    await sendEmails(mockContext, mockMessage)
 
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrow(Error)
-  })
-
-  test('should throw "Oh dear" Error when sendEmail rejects', async () => {
-    sendEmail.mockRejectedValue(new Error('Oh dear'))
-
-    const wrapper = async () => {
-      await sendEmails(mockContext, mockMessage)
-    }
-
-    expect(wrapper).rejects.toThrowError(/^Oh dear/)
+    expect(logSpy).toHaveBeenCalledWith(errorMock)
   })
 })

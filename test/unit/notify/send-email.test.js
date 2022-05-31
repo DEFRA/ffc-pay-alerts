@@ -9,7 +9,6 @@ let validateEmail
 let sendEmail
 let emailAddress
 let defaultEmailAddress
-let defaultReference
 
 describe('send email', () => {
   beforeEach(() => {
@@ -27,7 +26,8 @@ describe('send email', () => {
     emailAddress = 'test@test.com'
 
     defaultEmailAddress = env.notifyEmailAddress
-    defaultReference = ''
+
+    jest.mock('uuid', () => ({ v4: () => mockReference }))
   })
 
   afterEach(() => {
@@ -102,13 +102,23 @@ describe('send email', () => {
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledTimes(1)
   })
 
-  test('should call notifyClient.sendEmail with correct parameters when a valid message is received', async () => {
+  test('should not call notifyClient.sendEmail with empty reference', async () => {
+    await sendEmail(mockContext, mockMessage)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).not.toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
+      personalisation: flatten(mockMessage),
+      reference: ''
+    })
+  })
+
+  test('should  call notifyClient.sendEmail with uuid when no reference is provided', async () => {
     await sendEmail(mockContext, mockMessage)
 
     const notifyClientMockInstance = notifyClient.mock.instances[0]
     expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, env.notifyEmailAddress, {
       personalisation: flatten(mockMessage),
-      reference: defaultReference
+      reference: mockReference
     })
   })
 
