@@ -12,8 +12,8 @@ module.exports = [{
 {
   eventType: 'dax-inbound',
   service: 'dax inbound',
-  notifyTemplateId: '0b1871ae-095d-4951-bf7e-1bea39a2c995',
   externalProcess: true,
+  notifyTemplateId: '0b1871ae-095d-4951-bf7e-1bea39a2c995',
   eventLinks: [
     {
       link: 'payment-request-return'
@@ -22,10 +22,10 @@ module.exports = [{
 },
 {
   eventType: 'dax-outbound',
-  notifyTemplateId: 'a95cf04d-b807-425e-bcbd-2e76397a4041',
   externalProcess: true,
   service: 'dax outbound',
-  eventLinks: []
+  eventLinks: [],
+  notifyTemplateId: 'a95cf04d-b807-425e-bcbd-2e76397a4041'
 },
 {
   eventType: 'batch-processing',
@@ -66,12 +66,12 @@ module.exports = [{
 {
   eventType: 'payment-request-submission',
   service: 'ffc-pay-submission',
-  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04',
   eventLinks: [
     {
       link: 'dax-outbound'
     }
-  ]
+  ],
+  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
 },
 {
   eventType: 'payment-request-debt-response',
@@ -86,17 +86,17 @@ module.exports = [{
 {
   eventType: 'payment-request-manual-ledger-response',
   service: 'manual-ledger-check',
-  notifyTemplateId: 'b26da268-386a-4a89-b156-03afbe339de6',
   eventLinks: [
     {
       link: 'request-editor'
     }
-  ]
+  ],
+  notifyTemplateId: 'b26da268-386a-4a89-b156-03afbe339de6'
 },
 {
   eventType: 'request-editor',
-  service: 'ffc-pay-request-editor',
   notifyTemplateId: '305d0be0-6e8b-47d0-a909-ce58c6693442',
+  service: 'ffc-pay-request-editor',
   eventLinks: [
     {
       link: 'payment-request-ledger-assignment-quality-checked'
@@ -116,10 +116,10 @@ module.exports = [{
 {
   eventType: 'payment-request-return',
   service: 'ffc-pay-responses',
-  notifyTemplateId: '46caee3f-64de-4c54-b47b-ee42f92800e4',
   eventLinks: [
     {
       link: 'payment-request-processing'
     }
-  ]
+  ],
+  notifyTemplateId: '46caee3f-64de-4c54-b47b-ee42f92800e4'
 }]
