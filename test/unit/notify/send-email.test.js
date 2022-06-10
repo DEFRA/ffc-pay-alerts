@@ -9,6 +9,8 @@ let validateEmail
 let sendEmail
 let emailAddress
 let defaultEmailAddress
+let message
+let eventTemplates
 
 describe('send email', () => {
   beforeEach(() => {
@@ -160,5 +162,121 @@ describe('send email', () => {
     }
 
     expect(wrapper).rejects.toThrowError(/^Oh dear/)
+  })
+
+  test('should call notifyClient.sendEmail with correct event-notifyTemplateId when event-notifyTemplate exists in templateSchema', async () => {
+    eventTemplates = {
+      eventType: 'payment-request-submission',
+      notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
+    }
+    message = {
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: eventTemplates.eventType,
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+    }
+
+    await sendEmail(mockContext, message, emailAddress, mockReference)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(eventTemplates.notifyTemplateId, emailAddress, {
+      personalisation: flatten(message),
+      reference: mockReference
+    })
+  })
+
+  test('should not call notifyClient.sendEmail with  event-notifyTemplateId when event-notifyTemplate does not exist in templateSchema', async () => {
+    eventTemplates = {
+      eventType: 'No-Event-In-Template',
+      notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
+    }
+    message = {
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: eventTemplates.eventType,
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+    }
+
+    await sendEmail(mockContext, message, emailAddress, mockReference)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).not.toHaveBeenCalledWith(eventTemplates.notifyTemplateId, emailAddress, {
+      personalisation: flatten(message),
+      reference: mockReference
+    })
+  })
+
+  test('should not call notifyClient.sendEmail with the env (general) notifyEmailTemplateId when event-notifyTemplate exists in templateSchema', async () => {
+    eventTemplates = {
+      eventType: 'payment-request-submission',
+      notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
+    }
+    message = {
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: eventTemplates.eventType,
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+    }
+
+    await sendEmail(mockContext, message, emailAddress, mockReference)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).not.toHaveBeenCalledWith(env.notifyEmailTemplateId, emailAddress, {
+      personalisation: flatten(message),
+      reference: mockReference
+    })
+  })
+
+  test('should call notifyClient.sendEmail with the env (general) notifyEmailTemplateId when event-notifyTemplate does not exists in templateSchema', async () => {
+    eventTemplates = {
+      eventType: 'No-Event-In-Template',
+      notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
+    }
+    message = {
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: eventTemplates.eventType,
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+    }
+
+    await sendEmail(mockContext, message, emailAddress, mockReference)
+
+    const notifyClientMockInstance = notifyClient.mock.instances[0]
+    expect(notifyClientMockInstance.sendEmail).toHaveBeenCalledWith(env.notifyEmailTemplateId, emailAddress, {
+      personalisation: flatten(message),
+      reference: mockReference
+    })
   })
 })
