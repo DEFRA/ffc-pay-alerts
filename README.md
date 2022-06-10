@@ -85,16 +85,22 @@ It's likely that the Service Bus topic and subscription names will need to be am
 
 ## Adding customised notify template for an event type
 1. Create notify email template at https://www.notifications.service.gov.uk for the event type
-2. Add an object item for the newly created template to the file ./notify/notilify-template/template-schema.js
+2. Navigate to and open the file ./schema/event-schema.js
+3. Add/update corresponding event item with the notifyTemplateId of the newly created notify template
+4. Save the file
 
 ## Example of customised notify template object item
 
 {
-  eventType: 'payment-request-processing',
-  notifyTemplateId: 'fb29affd-9493-467d-bdcf-7fb96463c15b'
+  eventType: 'payment-request-submission',
+  service: 'ffc-pay-submission',
+  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04',
+  eventLinks: [
+    {
+      link: 'dax-outbound'
+    }
+  ]
 }
-
-The `local.settings.json` is required to hold all local development environment values.  As this file contains sensitive values, it is excluded from source control.
 
 ## Running the application
 

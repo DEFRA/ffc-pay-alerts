@@ -1,4 +1,4 @@
-const templateSchema = require('./template-schema')
+const templateSchema = require('../../schema/event-schema')
 const { notifyEmailTemplateId } = require('../../config')
 
 const getTemplateId = (message) => {
