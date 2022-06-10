@@ -83,6 +83,19 @@ It's likely that the Service Bus topic and subscription names will need to be am
 
 ```
 
+## Adding customised notify template for an event type
+1. Create notify email template at https://www.notifications.service.gov.uk for the event type
+2. Add an object item for the newly created template to the file ./notify/notilify-template/template-schema.js
+
+## Example of customised notify template object item
+
+{
+  eventType: 'payment-request-processing',
+  notifyTemplateId: 'fb29affd-9493-467d-bdcf-7fb96463c15b'
+}
+
+The `local.settings.json` is required to hold all local development environment values.  As this file contains sensitive values, it is excluded from source control.
+
 ## Running the application
 
 Use the convenience script, `./scripts/start`

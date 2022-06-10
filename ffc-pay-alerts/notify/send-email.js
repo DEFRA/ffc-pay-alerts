@@ -4,7 +4,7 @@ const {
   notifyApiKey,
   notifyEmailAddress
 } = require('../config')
-const { getTemplateId } = require('./notifyTemplate')
+const { getTemplateId } = require('./notify-template')
 
 const validateEmail = require('./validate-email')
 
