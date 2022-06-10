@@ -30,6 +30,26 @@ describe('send email', () => {
     defaultEmailAddress = env.notifyEmailAddress
 
     jest.mock('uuid', () => ({ v4: () => mockReference }))
+
+    eventTemplates = {
+      eventType: '',
+      notifyTemplateId: ''
+    }
+
+    message = {
+      name: 'test',
+      properties: {
+        id: '123456789',
+        checkpoint: 'test',
+        status: 'testing',
+        action: {
+          type: eventTemplates.eventType,
+          message: 'test',
+          timestamp: new Date(),
+          data: {}
+        }
+      }
+    }
   })
 
   afterEach(() => {
@@ -169,20 +189,7 @@ describe('send email', () => {
       eventType: 'payment-request-submission',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: eventTemplates.eventType,
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
+    message.properties.action.type = eventTemplates.eventType
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -198,20 +205,7 @@ describe('send email', () => {
       eventType: 'No-Event-In-Template',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: eventTemplates.eventType,
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
+    message.properties.action.type = eventTemplates.eventType
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -227,20 +221,7 @@ describe('send email', () => {
       eventType: 'payment-request-submission',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: eventTemplates.eventType,
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
+    message.properties.action.type = eventTemplates.eventType
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -256,20 +237,7 @@ describe('send email', () => {
       eventType: 'No-Event-In-Template',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message = {
-      name: 'test',
-      properties: {
-        id: '123456789',
-        checkpoint: 'test',
-        status: 'testing',
-        action: {
-          type: eventTemplates.eventType,
-          message: 'test',
-          timestamp: new Date(),
-          data: {}
-        }
-      }
-    }
+    message.properties.action.type = eventTemplates.eventType
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
