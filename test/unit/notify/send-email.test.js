@@ -32,7 +32,7 @@ describe('send email', () => {
     jest.mock('uuid', () => ({ v4: () => mockReference }))
 
     eventTemplates = {
-      eventType: '',
+      name: '',
       notifyTemplateId: ''
     }
 
@@ -186,10 +186,10 @@ describe('send email', () => {
 
   test('should call notifyClient.sendEmail with correct event-notifyTemplateId when event-notifyTemplate exists in templateSchema', async () => {
     eventTemplates = {
-      eventType: 'payment-request-submission',
+      name: 'payment-request-enrichment-error',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message.properties.action.type = eventTemplates.eventType
+    message.name = eventTemplates.name
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -202,10 +202,10 @@ describe('send email', () => {
 
   test('should not call notifyClient.sendEmail with  event-notifyTemplateId when event-notifyTemplate does not exist in templateSchema', async () => {
     eventTemplates = {
-      eventType: 'No-Event-In-Template',
+      name: 'invalid-payment-request-enrichment-error',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message.properties.action.type = eventTemplates.eventType
+    message.name = eventTemplates.name
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -218,10 +218,10 @@ describe('send email', () => {
 
   test('should not call notifyClient.sendEmail with the env(general) notifyEmailTemplateId when event-notifyTemplate exists in templateSchema', async () => {
     eventTemplates = {
-      eventType: 'payment-request-submission',
+      name: 'payment-request-enrichment-error',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message.properties.action.type = eventTemplates.eventType
+    message.name = eventTemplates.name
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
@@ -234,10 +234,10 @@ describe('send email', () => {
 
   test('should call notifyClient.sendEmail with the env(general) notifyEmailTemplateId when event-notifyTemplate does not exists in templateSchema', async () => {
     eventTemplates = {
-      eventType: 'No-Event-In-Template',
+      name: 'invalid-payment-request-enrichment-error',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
     }
-    message.properties.action.type = eventTemplates.eventType
+    message.name = eventTemplates.name
 
     await sendEmail(mockContext, message, emailAddress, mockReference)
 
