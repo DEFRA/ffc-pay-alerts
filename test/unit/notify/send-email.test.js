@@ -216,7 +216,7 @@ describe('send email', () => {
     })
   })
 
-  test('should not call notifyClient.sendEmail with the env (general) notifyEmailTemplateId when event-notifyTemplate exists in templateSchema', async () => {
+  test('should not call notifyClient.sendEmail with the env(general) notifyEmailTemplateId when event-notifyTemplate exists in templateSchema', async () => {
     eventTemplates = {
       eventType: 'payment-request-submission',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
