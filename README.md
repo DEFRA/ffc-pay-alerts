@@ -92,14 +92,8 @@ It's likely that the Service Bus topic and subscription names will need to be am
 ## Example of customised notify template object item
 
 {
-  eventType: 'payment-request-submission',
-  service: 'ffc-pay-submission',
-  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04',
-  eventLinks: [
-    {
-      link: 'dax-outbound'
-    }
-  ]
+  name: 'payment-request-enrichment-error',
+  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
 }
 
 ## Running the application
