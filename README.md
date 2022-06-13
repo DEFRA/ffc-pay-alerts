@@ -92,7 +92,7 @@ It's likely that the Service Bus topic and subscription names will need to be am
 ## Example of customised notify template object item
 
 {
-  name: 'payment-request-enrichment-error',
+  name: 'invalid-payment-request-enrichment-error',
   notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
 }
 
