@@ -1,15 +1,4 @@
 module.exports = [{
-  eventType: 'siti-inbound',
-  service: 'siti inbound',
-  notifyTemplateId: '48963d01-eb09-439c-a12e-e99129127b06',
-  externalProcess: true,
-  eventLinks: [
-    {
-      link: 'batch-processing'
-    }
-  ]
-},
-{
   eventType: 'dax-inbound',
   service: 'dax inbound',
   externalProcess: true,
