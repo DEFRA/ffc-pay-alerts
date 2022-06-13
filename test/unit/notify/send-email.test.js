@@ -232,7 +232,7 @@ describe('send email', () => {
     })
   })
 
-  test('should call notifyClient.sendEmail with the env (general) notifyEmailTemplateId when event-notifyTemplate does not exists in templateSchema', async () => {
+  test('should call notifyClient.sendEmail with the env(general) notifyEmailTemplateId when event-notifyTemplate does not exists in templateSchema', async () => {
     eventTemplates = {
       eventType: 'No-Event-In-Template',
       notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
