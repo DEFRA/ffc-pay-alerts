@@ -83,6 +83,19 @@ It's likely that the Service Bus topic and subscription names will need to be am
 
 ```
 
+## Adding customised notify template for an event type
+1. Create notify email template at https://www.notifications.service.gov.uk for the event type
+2. Navigate to and open the file ./schema/event-schema.js
+3. Add/update corresponding event item with the notifyTemplateId of the newly created notify template
+4. Save the file
+
+## Example of customised notify template object item
+
+{
+  name: 'payment-request-enrichment-error',
+  notifyTemplateId: '982b92b2-da06-4c51-8996-33b13dd4ce04'
+}
+
 ## Running the application
 
 Use the convenience script, `./scripts/start`
