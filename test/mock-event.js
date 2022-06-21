@@ -57,8 +57,7 @@ const BLOCKED_EVENT = {
           ],
           scheme: {
             schemeId: 2,
-            name: 'SFI Pilot',
-            active: true
+            name: 'SFI Pilot'
           },
           categoryId: 1,
           paymentRequestId: 1
