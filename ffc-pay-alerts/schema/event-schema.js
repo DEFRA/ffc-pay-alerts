@@ -17,4 +17,12 @@ module.exports = [{
 {
   name: 'payment-request-submission-error',
   notifyTemplateId: 'fb29affd-9493-467d-bdcf-7fb96463c15b'
+},
+{
+  name: 'batch-processing-quarantine-error',
+  notifyTemplateId: '800f1b79-ef74-494b-9afd-5fd94c821eeb'
+},
+{
+  name: 'responses-processing-quarantine-error',
+  notifyTemplateId: '92f7ccc2-ea28-4e35-b48d-7895f88a8a9d'
 }]
