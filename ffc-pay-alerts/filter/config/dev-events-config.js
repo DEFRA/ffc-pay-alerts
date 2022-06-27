@@ -1,4 +1,6 @@
 module.exports = [
+  'batch-processing-quarantine-error',
   'batch-processing-error',
-  'payment-request-blocked'
+  'payment-request-blocked',
+  'responses-processing-quarantine-error'
 ]
