@@ -1,7 +1,8 @@
 const {
   MOCK_RPA_ONLY_EVENT,
   BLOCKED_EVENT,
-  ERROR_EVENT
+  ERROR_EVENT,
+  DEV_EVENT
 } = require('../mock-event')
 
 const {
@@ -251,5 +252,40 @@ describe('filter email addresses by event', () => {
     const result = filterEmailAddresses(BLOCKED_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
+    const batchProcessingEvent = { ...DEV_EVENT }
+    const result = filterEmailAddresses(batchProcessingEvent)
+
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "responses-processing-quarantine-error" is given', async () => {
+    const batchProcessingEvent = { ...DEV_EVENT, name: 'responses-processing-quarantine-error' }
+    const result = filterEmailAddresses(batchProcessingEvent)
+
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses and rpaEmailAddresses when an event with name of "payment-request-blocked" is given', async () => {
+    const batchProcessingEvent = { ...DEV_EVENT, name: 'payment-request-blocked' }
+    const result = filterEmailAddresses(batchProcessingEvent)
+
+    expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitRpaEmailAddresses])
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
+    const batchProcessingEvent = { ...DEV_EVENT, name: 'batch-processing-error' }
+    const result = filterEmailAddresses(batchProcessingEvent)
+
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-quarantine-error" is given', async () => {
+    const batchProcessingEvent = { ...DEV_EVENT, name: 'batch-processing-quarantine-error' }
+    const result = filterEmailAddresses(batchProcessingEvent)
+
+    expect(result).toStrictEqual(splitDevEmailAddresses)
   })
 })

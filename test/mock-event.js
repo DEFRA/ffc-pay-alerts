@@ -86,8 +86,26 @@ const ERROR_EVENT = {
   }
 }
 
+const DEV_EVENT = {
+  name: 'batch-processing-payment-request-invalid',
+  properties: {
+    id: '2823b94b-ee45-496c-aea1-e6ff8962beff',
+    checkpoint: 'ffc-pay-batch-processor-local',
+    status: 'error',
+    action: {
+      type: 'error',
+      message: 'Invalid file',
+      data: {
+        filename: 'SITIELM0004_INVALID_FILE_20220307172712493.dat'
+      },
+      timestamp: '2022-05-20T15:59:19.158Z'
+    }
+  }
+}
+
 module.exports = {
   MOCK_RPA_ONLY_EVENT,
   BLOCKED_EVENT,
-  ERROR_EVENT
+  ERROR_EVENT,
+  DEV_EVENT
 }
