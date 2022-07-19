@@ -262,10 +262,10 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
 
-  test('should return a flat array of devEmailAddresses and coreSolutionsEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
-    event = { ...DEV_EVENT, name: 'batch-processing-payment-request-invalid' }
+  test('should return a flat array of coreSolutionsEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
+    event = { ...CORE_SOLUTIONS_EVENT, name: 'batch-processing-payment-request-invalid' }
     const result = filterEmailAddresses(event)
-    expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitCoreSolutionsEmailAddresses])
+    expect(result).toStrictEqual(splitCoreSolutionsEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses when an event with name of "responses-processing-quarantine-error" is given', async () => {
