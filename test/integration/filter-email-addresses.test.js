@@ -1,7 +1,10 @@
 const {
   RPA_EVENT,
   DEV_EVENT,
+<<<<<<< HEAD
   CORE_SOLUTIONS_EVENT,
+=======
+>>>>>>> main
   DEV_AND_RPA_EVENT
 } = require('../mock-event')
 
