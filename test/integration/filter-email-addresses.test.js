@@ -1,7 +1,7 @@
 const {
-  MOCK_RPA_ONLY_EVENT,
-  BLOCKED_EVENT,
-  ERROR_EVENT
+  RPA_EVENT,
+  DEV_EVENT,
+  DEV_AND_RPA_EVENT
 } = require('../mock-event')
 
 const {
@@ -28,19 +28,19 @@ describe('filter email addresses by event', () => {
   })
 
   test('should return a flat array of devEmailAddresses when an event matching the criteria for dev is given', async () => {
-    const result = filterEmailAddresses(ERROR_EVENT)
+    const result = filterEmailAddresses(DEV_EVENT)
 
     expect(result).toStrictEqual(splitDevEmailAddresses)
   })
 
   test('should return a flat array of rpaEmailAddresses when an event matching the criteria for rpa is given', async () => {
-    const result = filterEmailAddresses(MOCK_RPA_ONLY_EVENT)
+    const result = filterEmailAddresses(RPA_EVENT)
 
     expect(result).toStrictEqual(splitRpaEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses and rpaEmailAddresses when an event matching the criteria for dev and rpa is given', async () => {
-    const result = filterEmailAddresses(BLOCKED_EVENT)
+    const result = filterEmailAddresses(DEV_AND_RPA_EVENT)
 
     expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
@@ -112,7 +112,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a flat pre-populated emailAddresses array and an event matching the criteria for dev are given', async () => {
     emailAddresses = ['already@email', 'given@email']
 
-    const result = filterEmailAddresses(ERROR_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses, ...splitDevEmailAddresses])
   })
@@ -120,7 +120,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a flat pre-populated emailAddresses array and an event matching the criteria for rpa are given', async () => {
     emailAddresses = ['already@email', 'given@email']
 
-    const result = filterEmailAddresses(MOCK_RPA_ONLY_EVENT, emailAddresses)
+    const result = filterEmailAddresses(RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses, ...splitRpaEmailAddresses])
   })
@@ -128,7 +128,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a flat pre-populated emailAddresses array and an event matching the criteria for dev and rpa are given', async () => {
     emailAddresses = ['already@email', 'given@email']
 
-    const result = filterEmailAddresses(BLOCKED_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_AND_RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses, ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
@@ -208,7 +208,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a staggered pre-populated emailAddresses array and an event matching the criteria of dev are given', async () => {
     emailAddresses = [['already@email'], 'given@email']
 
-    const result = filterEmailAddresses(ERROR_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses])
   })
@@ -216,7 +216,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a nested pre-populated emailAddresses array and an event matching the criteria for dev are given', async () => {
     emailAddresses = [['already@email'], ['given@email']]
 
-    const result = filterEmailAddresses(ERROR_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses])
   })
@@ -224,7 +224,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a staggered pre-populated emailAddresses array and an event matching the criteria of rpa are given', async () => {
     emailAddresses = [['already@email'], 'given@email']
 
-    const result = filterEmailAddresses(MOCK_RPA_ONLY_EVENT, emailAddresses)
+    const result = filterEmailAddresses(RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitRpaEmailAddresses])
   })
@@ -232,7 +232,7 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a nested pre-populated emailAddresses array and an event matching the criteria for rpa are given', async () => {
     emailAddresses = [['already@email'], ['given@email']]
 
-    const result = filterEmailAddresses(MOCK_RPA_ONLY_EVENT, emailAddresses)
+    const result = filterEmailAddresses(RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitRpaEmailAddresses])
   })
@@ -240,16 +240,46 @@ describe('filter email addresses by event', () => {
   test('should return a flat string array when a staggered pre-populated emailAddresses array and an event matching the criteria of dev and rpa are given', async () => {
     emailAddresses = [['already@email'], 'given@email']
 
-    const result = filterEmailAddresses(BLOCKED_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_AND_RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
 
-  test('should return a flat string array when a nested pre-populated emailAddresses array and an event matching the criteria for rpa are given', async () => {
+  test('should return a flat string array when a nested pre-populated emailAddresses array and an event matching the criteria  of dev and rpa are given', async () => {
     emailAddresses = [['already@email'], ['given@email']]
 
-    const result = filterEmailAddresses(BLOCKED_EVENT, emailAddresses)
+    const result = filterEmailAddresses(DEV_AND_RPA_EVENT, emailAddresses)
 
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
+    event = { ...DEV_EVENT, name: 'batch-processing-payment-request-invalid' }
+    const result = filterEmailAddresses(event)
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "responses-processing-quarantine-error" is given', async () => {
+    event = { ...DEV_EVENT, name: 'responses-processing-quarantine-error' }
+    const result = filterEmailAddresses(event)
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses and rpaEmailAddresses when an event with name of "payment-request-blocked" is given', async () => {
+    event = { ...DEV_EVENT, name: 'payment-request-blocked' }
+    const result = filterEmailAddresses(event)
+    expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitRpaEmailAddresses])
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
+    event = { ...DEV_EVENT, name: 'batch-processing-error' }
+    const result = filterEmailAddresses(event)
+    expect(result).toStrictEqual(splitDevEmailAddresses)
+  })
+
+  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-quarantine-error" is given', async () => {
+    event = { ...DEV_EVENT, name: 'batch-processing-quarantine-error' }
+    const result = filterEmailAddresses(event)
+    expect(result).toStrictEqual(splitDevEmailAddresses)
   })
 })

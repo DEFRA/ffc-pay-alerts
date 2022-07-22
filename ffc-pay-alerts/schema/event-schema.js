@@ -25,4 +25,8 @@ module.exports = [{
 {
   name: 'responses-processing-quarantine-error',
   notifyTemplateId: '92f7ccc2-ea28-4e35-b48d-7895f88a8a9d'
+},
+{
+  name: 'batch-processing-payment-request-invalid',
+  notifyTemplateId: '0ca33f7e-575c-46c4-9e1b-6b465d337f89'
 }]

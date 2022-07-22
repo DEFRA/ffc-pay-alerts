@@ -1,5 +1,5 @@
 const devHandler = require('../../../../ffc-pay-alerts/filter/handlers/dev-handler')
-const { ERROR_EVENT } = require('../../../mock-event')
+const { DEV_EVENT } = require('../../../mock-event')
 
 const { devEmailAddresses } = require('../../../env')
 
@@ -8,7 +8,7 @@ let splitDevEmailAddresses
 
 describe('filter email addresses by event', () => {
   beforeEach(() => {
-    event = ERROR_EVENT
+    event = DEV_EVENT
     splitDevEmailAddresses = devEmailAddresses.split(',').flat()
   })
 

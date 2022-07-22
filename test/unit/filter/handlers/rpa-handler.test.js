@@ -1,5 +1,5 @@
 const rpaHandler = require('../../../../ffc-pay-alerts/filter/handlers/rpa-handler')
-const { MOCK_RPA_ONLY_EVENT } = require('../../../mock-event')
+const { RPA_EVENT } = require('../../../mock-event')
 
 const { rpaEmailAddresses } = require('../../../env')
 
@@ -8,12 +8,12 @@ let splitRpaEmailAddresses
 
 describe('filter email addresses by event', () => {
   beforeEach(() => {
-    event = MOCK_RPA_ONLY_EVENT
+    event = RPA_EVENT
     splitRpaEmailAddresses = rpaEmailAddresses.split(',').flat()
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    jest.resetAllMocks()
     jest.resetModules()
   })
 
