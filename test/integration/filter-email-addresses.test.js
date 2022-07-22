@@ -280,10 +280,10 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
 
-  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
+  test('should return a flat array of coreSolutionsEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
     event = { ...DEV_EVENT, name: 'batch-processing-error' }
     const result = filterEmailAddresses(event)
-    expect(result).toStrictEqual(splitDevEmailAddresses)
+    expect(result).toStrictEqual(splitCoreSolutionsEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-quarantine-error" is given', async () => {
