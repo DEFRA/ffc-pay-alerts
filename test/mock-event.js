@@ -30,6 +30,11 @@ const DEV_EVENT = {
   }
 }
 
+const CORE_SOLUTIONS_EVENT = {
+  ...DEV_EVENT,
+  name: 'core-solutions-mock-event'
+}
+
 const DEV_AND_RPA_EVENT = {
   name: 'mock-event-name',
   properties: {
@@ -50,5 +55,6 @@ const DEV_AND_RPA_EVENT = {
 module.exports = {
   RPA_EVENT,
   DEV_EVENT,
+  CORE_SOLUTIONS_EVENT,
   DEV_AND_RPA_EVENT
 }

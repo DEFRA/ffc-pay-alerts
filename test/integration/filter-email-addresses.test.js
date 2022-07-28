@@ -1,12 +1,14 @@
 const {
   RPA_EVENT,
   DEV_EVENT,
+  CORE_SOLUTIONS_EVENT,
   DEV_AND_RPA_EVENT
 } = require('../mock-event')
 
 const {
   devEmailAddresses,
-  rpaEmailAddresses
+  rpaEmailAddresses,
+  coreSolutionsEmailAddresses
 } = require('../env')
 
 const filterEmailAddresses = require('../../ffc-pay-alerts/filter/filter-email-addresses')
@@ -14,6 +16,7 @@ const filterEmailAddresses = require('../../ffc-pay-alerts/filter/filter-email-a
 let event
 let splitDevEmailAddresses
 let splitRpaEmailAddresses
+let splitCoreSolutionsEmailAddresses
 let emailAddresses
 
 describe('filter email addresses by event', () => {
@@ -21,6 +24,7 @@ describe('filter email addresses by event', () => {
     emailAddresses = []
     splitDevEmailAddresses = devEmailAddresses.split(',').flat()
     splitRpaEmailAddresses = rpaEmailAddresses.split(',').flat()
+    splitCoreSolutionsEmailAddresses = coreSolutionsEmailAddresses.split(',').flat()
   })
 
   afterEach(() => {
@@ -37,6 +41,11 @@ describe('filter email addresses by event', () => {
     const result = filterEmailAddresses(RPA_EVENT)
 
     expect(result).toStrictEqual(splitRpaEmailAddresses)
+  })
+
+  test('should return a flat array of coreSolutionsEmailAddresses when an event matching the criteria for core solutions is given', async () => {
+    const result = filterEmailAddresses(CORE_SOLUTIONS_EVENT)
+    expect(result).toStrictEqual(splitCoreSolutionsEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses and rpaEmailAddresses when an event matching the criteria for dev and rpa is given', async () => {
@@ -253,10 +262,10 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual([...emailAddresses.flat(), ...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
 
-  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
-    event = { ...DEV_EVENT, name: 'batch-processing-payment-request-invalid' }
+  test('should return a flat array of coreSolutionsEmailAddresses when an event with name of "batch-processing-payment-request-invalid" is given', async () => {
+    event = { ...CORE_SOLUTIONS_EVENT, name: 'batch-processing-payment-request-invalid' }
     const result = filterEmailAddresses(event)
-    expect(result).toStrictEqual(splitDevEmailAddresses)
+    expect(result).toStrictEqual(splitCoreSolutionsEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses when an event with name of "responses-processing-quarantine-error" is given', async () => {
@@ -271,10 +280,10 @@ describe('filter email addresses by event', () => {
     expect(result).toStrictEqual([...splitDevEmailAddresses, ...splitRpaEmailAddresses])
   })
 
-  test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
+  test('should return a flat array of coreSolutionsEmailAddresses when an event with name of "batch-processing-error" is given', async () => {
     event = { ...DEV_EVENT, name: 'batch-processing-error' }
     const result = filterEmailAddresses(event)
-    expect(result).toStrictEqual(splitDevEmailAddresses)
+    expect(result).toStrictEqual(splitCoreSolutionsEmailAddresses)
   })
 
   test('should return a flat array of devEmailAddresses when an event with name of "batch-processing-quarantine-error" is given', async () => {
