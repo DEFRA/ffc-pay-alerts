@@ -1,17 +1,18 @@
 {
   "name": "ffc-pay-alerts",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Azure Function app to send payment alerts to email via GOV.UK Notify",
   "author": "Defra",
   "contributors": [
     "Marc Templeton <m.templeton@kainos.com>",
     "Abidemi Adio <abidemi.adio@defra.gov.uk>",
-    "Simon Dunn <simon.dunn@defra.gov.uk>"
+    "Simon Dunn <simon.dunn@defra.gov.uk>",
+    "Callum Leighton <callum.leighton@kainos.com>"
   ],
   "scripts": {
     "lint": "standard",
     "start": "func start -p 7070",
-    "start:detached": "func start -p 7070 1> /dev/null 2> /dev/null &",
+    "start:detached": "func start -p 7070 1> logs/out.log 2> logs/err.log &",
     "start:verbose": "func start -p 7070 --verbose",
     "pretest": "npm run test:lint",
     "test": "jest",
@@ -43,3 +44,4 @@
     "uuid": "8.3.2"
   }
 }
+
