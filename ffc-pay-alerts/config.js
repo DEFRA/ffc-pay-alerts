@@ -5,5 +5,6 @@ module.exports = {
   notifyEmailAddresses: process.env.NOTIFY_EMAIL_ADDRESSES,
   devEmailAddresses: process.env.DEV_EMAIL_ADDRESSES,
   rpaEmailAddresses: process.env.RPA_EMAIL_ADDRESSES,
-  coreSolutionsEmailAddresses: process.env.CORE_SOLUTIONS_EMAIL_ADDRESSES
+  coreSolutionsEmailAddresses: process.env.CORE_SOLUTIONS_EMAIL_ADDRESSES,
+  environment: process.env.FFC_ENVIRONMENT ?? 'local'
 }
