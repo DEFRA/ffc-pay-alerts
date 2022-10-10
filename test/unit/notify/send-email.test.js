@@ -1,7 +1,7 @@
 const flatten = require('flat')
 const env = require('../../env')
 const mockContext = require('../../mock-context')
-const mockMessage = require('../../mock-context')
+const mockMessage = require('../../mock-message')
 const mockReference = require('../../mock-reference')
 const mockEventTemplate = require('../../mock-event-template')
 
