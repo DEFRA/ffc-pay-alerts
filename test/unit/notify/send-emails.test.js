@@ -93,4 +93,12 @@ describe('send emails', () => {
 
     expect(logSpy).toHaveBeenCalledWith(errorMock)
   })
+
+  test('test', async () => {
+    const emailOne = 'not-real@test.com'
+    const emailTwo = 'test@test.com'
+    emailAddresses = emailOne.concat(', ', emailTwo)
+    await sendEmails(mockContext, mockMessage, emailAddresses, mockReference)
+    expect(sendEmail).toHaveBeenCalledWith(mockContext, mockMessage, emailTwo, mockReference)
+  })
 })

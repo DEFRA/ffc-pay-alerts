@@ -7,7 +7,8 @@ const sendEmail = require('./send-email')
 
 const sendEmails = async (context, message, emailAddresses = notifyEmailAddresses, reference = uuidv4()) => {
   // process.env.NOTIFY_EMAIL_ADDRESSES returns string, so splitting by comma to get array
-  const recipients = typeof (emailAddresses) === 'string' ? emailAddresses.split(',') : emailAddresses
+  const recipients = typeof (emailAddresses) === 'string' ? formatEmailAddresses(emailAddresses) : emailAddresses
+  console.log(recipients)
 
   for (const recipient of recipients) {
     try {
@@ -19,3 +20,10 @@ const sendEmails = async (context, message, emailAddresses = notifyEmailAddresse
 }
 
 module.exports = sendEmails
+
+const formatEmailAddresses = (emailAddresses) => {
+  const formatted = emailAddresses.replaceAll(' ', '')
+  const array = formatted.split(',')
+  console.log('array', array)
+  return array
+}
