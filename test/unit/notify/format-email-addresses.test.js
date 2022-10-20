@@ -89,4 +89,11 @@ describe('format email addresses', () => {
     const result = formatEmailAddresses(emailAddresses)
     expect(result).toStrictEqual(emailArray)
   })
+
+  test('should return an array equal to emailArray when emailAddresses has only one email address', async () => {
+    emailAddresses = `${emailOne} `
+    const result = formatEmailAddresses(emailAddresses)
+    console.log([emailArray[0]])
+    expect(result).toStrictEqual([emailArray[0]])
+  })
 })
