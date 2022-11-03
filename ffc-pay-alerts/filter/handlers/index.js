@@ -1,10 +1,10 @@
 const devHandler = require('./dev-handler')
-const rpaHandler = require('./rpa-handler')
+const debtEnrichmentHandler = require('./debt-enrichment-handler')
 const coreSolutionsHandler = require('./core-solutions-handler')
 
 const handlers = {
   dev: devHandler,
-  rpa: rpaHandler,
+  debtEnrichment: debtEnrichmentHandler,
   coreSolutions: coreSolutionsHandler
 }
 
