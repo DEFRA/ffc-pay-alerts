@@ -1,7 +1,7 @@
 # FFC pay alerts
-FFC pay alerts to send email notifications from the payment service to RPA operations.
+FFC pay alerts to send email notifications from the payment service to the Debt Enrichment team.
 
-This function is triggered from a service bus message requesting an email message to be sent to RPA operations.
+This function is triggered from a service bus message requesting an email message to be sent to the Debt Enrichment team.
 
 The message contains the text to be displayed in the email.
 
@@ -77,7 +77,7 @@ It's likely that the Service Bus topic and subscription names will need to be am
     "NOTIFY_API_KEY": "NOTIFY TEST, TEAM OR LIVE API KEY STRING",
     "NOTIFY_EMAIL_TEMPLATE_ID" : "NOTIFY EMAIL TEMPLATE STRING",
     "DEV_EMAIL_ADDRESSES": "DEV TEAM EMAIL ADDRESSES STRING SEPARATED BY COMMAS",
-    "RPA_EMAIL_ADDRESSES": "RPA OPERATIONS EMAIL ADDRESSES STRING SEPARATED BY COMMAS",
+    "DEBT_ENRICHMENT_EMAIL_ADDRESSES": "DEBT ENRICHMENT TEAM EMAIL ADDRESSES STRING SEPARATED BY COMMAS",
     "CORE_SOLUTIONS_EMAIL_ADDRESSES": "CORE SOLUTIONS TEAMS EMAIL ADDRESSES STRING SEPARATED BY COMMAS"
   }
 }

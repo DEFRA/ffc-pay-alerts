@@ -8,5 +8,5 @@ process.env.NOTIFY_EMAIL_ADDRESSES = envVars.notifyEmailAddresses
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 process.env.NOTIFY_EMAIL_ADDRESSES = envVars.notifyEmailAddresses
 process.env.DEV_EMAIL_ADDRESSES = envVars.devEmailAddresses
-process.env.RPA_EMAIL_ADDRESSES = envVars.rpaEmailAddresses
+process.env.DEBT_ENRICHMENT_EMAIL_ADDRESSES = envVars.debtEnrichmentEmailAddresses
 process.env.CORE_SOLUTIONS_EMAIL_ADDRESSES = envVars.coreSolutionsEmailAddresses

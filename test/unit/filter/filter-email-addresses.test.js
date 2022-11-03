@@ -1,6 +1,6 @@
 let filterEmailAddresses
 let devHandler
-let rpaHandler
+let debtEnrichmentHandler
 
 let emailAddresses
 
@@ -14,9 +14,9 @@ describe('filter email addresses by event', () => {
     devHandler = require('../../../ffc-pay-alerts/filter/handlers/dev-handler')
     devHandler.mockImplementation(() => [])
 
-    jest.mock('../../../ffc-pay-alerts/filter/handlers/rpa-handler')
-    rpaHandler = require('../../../ffc-pay-alerts/filter/handlers/rpa-handler')
-    rpaHandler.mockImplementation(() => [])
+    jest.mock('../../../ffc-pay-alerts/filter/handlers/debt-enrichment-handler')
+    debtEnrichmentHandler = require('../../../ffc-pay-alerts/filter/handlers/debt-enrichment-handler')
+    debtEnrichmentHandler.mockImplementation(() => [])
   })
 
   afterEach(() => {
@@ -36,75 +36,75 @@ describe('filter email addresses by event', () => {
     expect(devHandler).toHaveBeenCalledTimes(1)
   })
 
-  test('should call the rpaHandler when filterEmailAddresses is called with an event', async () => {
+  test('should call the debtEnrichmentHandler when filterEmailAddresses is called with an event', async () => {
     filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above')
 
-    expect(rpaHandler).toHaveBeenCalled()
+    expect(debtEnrichmentHandler).toHaveBeenCalled()
   })
 
-  test('should call the rpaHandler once when filterEmailAddresses is called with an event', async () => {
+  test('should call the debtEnrichmentHandler once when filterEmailAddresses is called with an event', async () => {
     filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above')
 
-    expect(rpaHandler).toHaveBeenCalledTimes(1)
+    expect(debtEnrichmentHandler).toHaveBeenCalledTimes(1)
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns a flat array and rpaHandler returns an empty array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns a flat array and debtEnrichmentHandler returns an empty array', async () => {
     devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    rpaHandler.mockImplementation(() => [])
+    debtEnrichmentHandler.mockImplementation(() => [])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above')
 
     expect(result).toStrictEqual(['dev1@email', 'dev2@email'])
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns an empty array and rpaHandler returns a flat array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns an empty array and debtEnrichmentHandler returns a flat array', async () => {
     devHandler.mockImplementation(() => [])
-    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
+    debtEnrichmentHandler.mockImplementation(() => ['debtEnrichment1@email', 'debtEnrichment2@email'])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above')
 
-    expect(result).toStrictEqual(['rpa1@email', 'rpa2@email'])
+    expect(result).toStrictEqual(['debtEnrichment1@email', 'debtEnrichment2@email'])
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns a flat array and rpaHandler returns a flat array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with an event, devHandler returns a flat array and debtEnrichmentHandler returns a flat array', async () => {
     devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
+    debtEnrichmentHandler.mockImplementation(() => ['debtEnrichment1@email', 'debtEnrichment2@email'])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above')
 
-    expect(result).toStrictEqual(['dev1@email', 'dev2@email', 'rpa1@email', 'rpa2@email'])
+    expect(result).toStrictEqual(['dev1@email', 'dev2@email', 'debtEnrichment1@email', 'debtEnrichment2@email'])
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns a flat array and rpaHandler returns an empty array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns a flat array and debtEnrichmentHandler returns an empty array', async () => {
     emailAddresses = ['before@email']
 
     devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    rpaHandler.mockImplementation(() => [])
+    debtEnrichmentHandler.mockImplementation(() => [])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above', emailAddresses)
 
     expect(result).toStrictEqual(['before@email', 'dev1@email', 'dev2@email'])
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns an empty array and rpaHandler returns a flat array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns an empty array and debtEnrichmentHandler returns a flat array', async () => {
     emailAddresses = ['before@email']
 
     devHandler.mockImplementation(() => [])
-    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
+    debtEnrichmentHandler.mockImplementation(() => ['debtEnrichment1@email', 'debtEnrichment2@email'])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above', emailAddresses)
 
-    expect(result).toStrictEqual(['before@email', 'rpa1@email', 'rpa2@email'])
+    expect(result).toStrictEqual(['before@email', 'debtEnrichment1@email', 'debtEnrichment2@email'])
   })
 
-  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns a flat array and rpaHandler returns a flat array', async () => {
+  test('should return a flat array of each handler with no null or undefined values when filterEmailAddresses is called with emailAddresses and an event, devHandler returns a flat array and debtEnrichmentHandler returns a flat array', async () => {
     emailAddresses = ['before@email']
 
     devHandler.mockImplementation(() => ['dev1@email', 'dev2@email'])
-    rpaHandler.mockImplementation(() => ['rpa1@email', 'rpa2@email'])
+    debtEnrichmentHandler.mockImplementation(() => ['debtEnrichment1@email', 'debtEnrichment2@email'])
 
     const result = filterEmailAddresses('this doesn\'t matter, internal functions have been mocked above', emailAddresses)
 
-    expect(result).toStrictEqual(['before@email', 'dev1@email', 'dev2@email', 'rpa1@email', 'rpa2@email'])
+    expect(result).toStrictEqual(['before@email', 'dev1@email', 'dev2@email', 'debtEnrichment1@email', 'debtEnrichment2@email'])
   })
 })

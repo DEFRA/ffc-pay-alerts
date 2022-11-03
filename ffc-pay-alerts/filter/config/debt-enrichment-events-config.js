@@ -1,5 +1,5 @@
 module.exports = [
   'mock-event-name',
-  'rpa-mock-event',
+  'debt-enrichment-mock-event',
   'payment-request-blocked'
 ]
