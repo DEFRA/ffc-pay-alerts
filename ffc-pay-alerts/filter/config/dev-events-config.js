@@ -3,6 +3,5 @@ module.exports = [
   'dev-mock-event',
   'batch-processing-quarantine-error',
   'payment-request-blocked',
-  'responses-processing-quarantine-error',
-  'invalid-bank-details'
+  'responses-processing-quarantine-error'
 ]
