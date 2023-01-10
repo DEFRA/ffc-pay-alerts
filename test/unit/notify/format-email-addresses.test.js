@@ -10,9 +10,9 @@ describe('format email addresses', () => {
     expect(result).toBeInstanceOf(Array)
   })
 
-  test('should return an array of containing the email addresses with no spaces when given an array with a single email with spaces in it', async () => {
+  test('should return an array containing the email addresses with no spaces when given an array with a single email with spaces in it', async () => {
     const result = formatEmailAddresses(emailThree)
-    result.forEach(email => expect(email).not.toContain(' '))
+    expect(result).not.toContain(' ')
   })
 
   test('should return an array of email addresses with no spaces in any element when given an array of multiple emails with spaces in them', async () => {
@@ -20,14 +20,14 @@ describe('format email addresses', () => {
     result.forEach(email => expect(email).not.toContain(' '))
   })
 
-  test('should return an array when emailAddresses is a string of one email address', async () => {
+  test('should return an array containing emailOne when emailAddresses is a string of one email address', async () => {
     const result = formatEmailAddresses(emailOne)
-    expect(result).toBeInstanceOf(Array)
+    expect(result).toStrictEqual([emailOne])
   })
 
-  test('should return an array when emailAddresses is a string with multiple addresses', async () => {
+  test('should return an array containing emailAddresses with spaces removed when input is a string with multiple emails', async () => {
     const result = formatEmailAddresses(`${emailOne}, ${emailTwo}, ${emailThree}`)
-    expect(result).toBeInstanceOf(Array)
+    expect(result).toStrictEqual([emailOne, 'not-real@test.com', 'another-test@test.com'])
   })
 
   test('should return an array of email addresses with no spaces in any element when given a string of emails with spaces in them', async () => {
