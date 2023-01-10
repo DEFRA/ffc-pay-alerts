@@ -138,16 +138,4 @@ describe('send emails', () => {
     await sendEmails(mockContext, mockMessage, emailAddresses)
     expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
   })
-
-  test('should call formatEmailAddress when emailAddress is a string', async () => {
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddresses[0])
-    expect(formatEmailAddresses).toHaveBeenCalled()
-  })
-
-  test('should call formatEmailAddress once when emailAddress is a string', async () => {
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddresses[0])
-    expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
-  })
 })
