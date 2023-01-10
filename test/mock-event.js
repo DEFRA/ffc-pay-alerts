@@ -35,6 +35,16 @@ const CORE_SOLUTIONS_EVENT = {
   name: 'core-solutions-mock-event'
 }
 
+const INVALID_BANK_DETAILS_EVENT = {
+  ...DEV_EVENT,
+  name: 'invalid-bank-details-mock-event',
+  properties: {
+    action: {
+      message: 'invalid-bank-details'
+    }
+  }
+}
+
 const DEV_AND_DEBT_ENRICHMENT_EVENT = {
   name: 'mock-event-name',
   properties: {
@@ -56,5 +66,6 @@ module.exports = {
   DEBT_ENRICHMENT_EVENT,
   DEV_EVENT,
   CORE_SOLUTIONS_EVENT,
-  DEV_AND_DEBT_ENRICHMENT_EVENT
+  DEV_AND_DEBT_ENRICHMENT_EVENT,
+  INVALID_BANK_DETAILS_EVENT
 }
