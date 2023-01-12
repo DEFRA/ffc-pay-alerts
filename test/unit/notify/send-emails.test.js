@@ -20,10 +20,6 @@ describe('send emails', () => {
 
     sendEmails = require('../../../ffc-pay-alerts/notify/send-emails')
 
-    // jest.mock(formatEmailAddresses, () => {
-    //   return ['test@test.com', 'not-real@test.com']
-    // })
-
     jest.mock('../../../ffc-pay-alerts/notify/format-email-addresses')
     formatEmailAddresses = require('../../../ffc-pay-alerts/notify/format-email-addresses')
 
@@ -32,12 +28,42 @@ describe('send emails', () => {
     defaultEmailAddresses = env.notifyEmailAddresses.split(',')
 
     jest.mock('uuid', () => ({ v4: () => mockReference }))
+
+    formatEmailAddresses.mockReturnValue(
+      emailAddresses
+    )
   })
 
   afterEach(() => {
     jest.clearAllMocks()
   })
 
+  test('should call formatEmailAddress when emailAddress is a string', async () => {
+    const emailAddress = emailAddresses[0]
+    formatEmailAddresses.mockReturnValue(emailAddresses)
+    await sendEmails(mockContext, mockMessage, emailAddress)
+    expect(formatEmailAddresses).toHaveBeenCalled()
+  })
+
+  test('should call formatEmailAddress once when emailAddress is a string', async () => {
+    const emailAddress = emailAddresses[0]
+    formatEmailAddresses.mockReturnValue(emailAddresses)
+    await sendEmails(mockContext, mockMessage, emailAddress)
+    expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
+  })
+
+  test('should call formatEmailAddress when emailAddress is an array', async () => {
+    formatEmailAddresses.mockReturnValue(emailAddresses)
+    await sendEmails(mockContext, mockMessage, emailAddresses)
+    expect(formatEmailAddresses).toHaveBeenCalled()
+  })
+
+  test('should call formatEmailAddress once when emailAddress is an array', async () => {
+    formatEmailAddresses.mockReturnValue(emailAddresses)
+    await sendEmails(mockContext, mockMessage, emailAddresses)
+    expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
+  })
+  
   test('should call sendEmail when valid context, message, emailAddresses and reference are received', async () => {
     formatEmailAddresses.mockReturnValue(emailAddresses)
     await sendEmails(mockContext, mockMessage, emailAddresses, mockReference)
@@ -111,31 +137,5 @@ describe('send emails', () => {
     await sendEmails(mockContext, mockMessage)
 
     expect(logSpy).toHaveBeenCalledWith(errorMock)
-  })
-
-  test('should call formatEmailAddress when emailAddress is a string', async () => {
-    const emailAddress = emailAddresses[0]
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddress)
-    expect(formatEmailAddresses).toHaveBeenCalled()
-  })
-
-  test('should call formatEmailAddress once when emailAddress is a string', async () => {
-    const emailAddress = emailAddresses[0]
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddress)
-    expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call formatEmailAddress when emailAddress is an array', async () => {
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddresses)
-    expect(formatEmailAddresses).toHaveBeenCalled()
-  })
-
-  test('should call formatEmailAddress once when emailAddress is an array', async () => {
-    formatEmailAddresses.mockReturnValue(emailAddresses)
-    await sendEmails(mockContext, mockMessage, emailAddresses)
-    expect(formatEmailAddresses).toHaveBeenCalledTimes(1)
   })
 })
