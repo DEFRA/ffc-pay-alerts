@@ -10,3 +10,4 @@ process.env.NOTIFY_EMAIL_ADDRESSES = envVars.notifyEmailAddresses
 process.env.DEV_EMAIL_ADDRESSES = envVars.devEmailAddresses
 process.env.DEBT_ENRICHMENT_EMAIL_ADDRESSES = envVars.debtEnrichmentEmailAddresses
 process.env.CORE_SOLUTIONS_EMAIL_ADDRESSES = envVars.coreSolutionsEmailAddresses
+process.env.INVALID_BANK_DETAILS_EMAIL_ADDRESSES = envVars.invalidBankDetailsEmailAddresses
