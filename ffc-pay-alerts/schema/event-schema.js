@@ -29,8 +29,4 @@ module.exports = [{
 {
   name: 'batch-processing-payment-request-invalid',
   notifyTemplateId: '0ca33f7e-575c-46c4-9e1b-6b465d337f89'
-},
-{
-  name: 'invalid-bank-details',
-  notifyTemplateId: '8c11770a-67e9-4f48-ae5b-699397720056'
 }]
