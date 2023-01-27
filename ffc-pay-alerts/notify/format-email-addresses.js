@@ -3,6 +3,7 @@ const formatEmailAddresses = (emailAddresses) => {
     // process.env.NOTIFY_EMAIL_ADDRESSES returns string, so splitting by comma to get array
     emailAddresses = emailAddresses.split(',')
   }
+  // Problem child
   return emailAddresses.map(email => email.replaceAll(' ', ''))
 }
 
